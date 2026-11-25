@@ -80,7 +80,7 @@
   .btn-primario:hover{background:var(--ambar-2)}
   .btn-sec{border-color:#56608A;color:#EEF1FA;background:rgba(14,21,48,.4)}
   .btn-sec:hover{border-color:#C9D0EA}
-  .btn svg{width:18px;height:18px}
+  .btn svg{width:18px;height:18px;flex:none}
 
   /* panel de la simulación */
   .hud{position:absolute;z-index:3;right:28px;bottom:28px;width:270px;background:rgba(14,21,48,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(169,190,255,.2);border-radius:16px;padding:16px 18px;color:#C9D0EA;font-size:.88rem}
@@ -132,7 +132,7 @@
   .p .ilus svg{height:100%;width:auto}
   .p .cuerpo{padding:26px 28px 28px;display:flex;flex-direction:column;flex:1}
   .p.lead{grid-column:span 6;background:var(--noche);color:#EEF1FA;border-color:var(--noche);display:grid;grid-template-columns:1.1fr 1fr}
-  .p.lead .ilus{height:auto;min-height:100%;background:radial-gradient(circle at 60% 40%,#24306A,#121A3C 70%);border-bottom:0;border-left:1px solid rgba(169,190,255,.12);order:2;padding:30px}
+  .p.lead .ilus{height:auto;min-height:100%;flex-direction:column;align-items:stretch;background:radial-gradient(circle at 60% 40%,#24306A,#121A3C 70%);border-bottom:0;border-left:1px solid rgba(169,190,255,.12);order:2;padding:30px}
   .p.lead .cuerpo{padding:40px}
   .p.lead .ilus svg{width:100%;max-width:440px;height:auto}
   .p.lead .p-desc{color:#C9D0EA}
@@ -160,6 +160,44 @@
   .enlace:hover{color:var(--acento)}
   .p.lead .enlace{color:#fff}
   .enlace svg{width:18px;height:18px}
+
+
+  /* Capturas reales y visor */
+  .p .ilus.foto{display:block;position:relative;padding:0;height:210px;width:100%;border:0;cursor:zoom-in;overflow:hidden;background:#E8ECF6;border-bottom:1px solid var(--linea)}
+  .p.menor .ilus.foto{height:170px}
+  .p .ilus.foto img{width:100%;height:100%;object-fit:cover;object-position:top left;transition:transform .4s ease}
+  .p .ilus.foto:hover img{transform:scale(1.03)}
+  .contador{position:absolute;right:12px;bottom:12px;background:rgba(14,21,48,.85);color:#fff;font-size:.8rem;font-weight:700;padding:4px 10px;border-radius:999px}
+  .galeria-lead{display:flex;flex-direction:column;gap:12px;justify-content:center}
+  .captura{display:block;padding:0;border:0;background:none;cursor:zoom-in;border-radius:12px;overflow:hidden;position:relative}
+  .captura img{width:100%;height:100%;object-fit:cover;object-position:top left}
+  .captura.principal{background:#fff;border-radius:14px;box-shadow:0 30px 60px -30px rgba(0,0,0,.6);aspect-ratio:16/11}
+  .captura.principal img{height:calc(100% - 26px)}
+  .cromo{display:flex;gap:6px;height:26px;align-items:center;padding:0 12px;background:#E8ECF6}
+  .cromo i{width:9px;height:9px;border-radius:50%;background:#C3CBE3}
+  .miniaturas{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .miniaturas .captura{aspect-ratio:4/3;border:1px solid rgba(169,190,255,.25)}
+  .miniaturas .captura:hover{border-color:var(--ambar)}
+  .captura.mas span{position:absolute;inset:0;display:grid;place-items:center;background:rgba(14,21,48,.6);color:#fff;font-weight:700;font-size:1.1rem}
+  @media (prefers-reduced-motion: reduce){.p .ilus.foto img{transition:none}}
+  .mi-parte{font-size:.95rem;margin:0 0 14px;padding:10px 14px;border-radius:10px;background:color-mix(in srgb,var(--acento) 9%,#fff);color:var(--tinta)}
+  .p.lead .mi-parte{background:var(--noche-2);color:#D7DCEF}
+  .p.lead .mi-parte strong{color:#fff}
+  .enlaces-p{display:flex;flex-wrap:wrap;gap:20px;align-items:center}
+  .boton-enlace{font:inherit;font-weight:700;background:none;border:0;border-bottom:2px solid var(--acento);padding:0 0 2px;cursor:pointer}
+  .p.lead .boton-enlace{color:#fff}
+
+  .visor{border:0;padding:0;background:transparent;max-width:min(1200px,94vw);width:100%;max-height:94vh;color:#fff}
+  .visor::backdrop{background:rgba(8,12,30,.88);backdrop-filter:blur(4px)}
+  .visor figure{margin:0;display:flex;flex-direction:column;gap:12px}
+  .visor .marco{background:#fff;border-radius:14px;overflow:auto;max-height:78vh}
+  .visor .marco img{width:100%;height:auto;display:block}
+  .visor figcaption{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+  .visor .texto{font-size:1rem}
+  .visor .texto span{color:#9AA3C7;margin-left:8px}
+  .visor .ctrl{display:flex;gap:8px}
+  .visor button{font:inherit;font-weight:700;font-size:.92rem;color:#fff;background:var(--noche-3);border:1px solid rgba(169,190,255,.3);border-radius:999px;padding:9px 16px;cursor:pointer}
+  .visor button:hover{background:#2E3B80}
 
   /* Tecnologías */
   .tec{display:grid;grid-template-columns:1fr 1fr;gap:0 56px}
@@ -293,8 +331,9 @@
     <p class="rol">Desarrollador full-stack. Construyo plataformas educativas y estudio cómo hacer que el código corra en paralelo.</p>
     <div class="acciones">
       <a class="btn btn-primario" href="#proyectos">Ver proyectos</a>
+      <a class="btn btn-sec" href="cv/CV-Carlos-Escamilla.pdf" download><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>Descargar CV</a>
       <a class="btn btn-sec" href="https://github.com/CarlosEscam"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub</a>
-      <a class="btn btn-sec" href="#contacto">Contacto</a>
+      <a class="btn btn-sec" href="https://www.linkedin.com/in/carlos-escamilla-936309290/"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg>LinkedIn</a>
     </div>
   </div>
   <aside class="hud" aria-label="Simulación de N-cuerpos">
@@ -357,29 +396,17 @@
     <div class="proyectos">
       <!-- LogiCode (Spring) -->
       <article class="p lead" data-cat="educacion" style="--acento:var(--c-logicode)">
-        <div class="ilus" aria-hidden="true">
-          <svg viewBox="0 0 360 260" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- bloques tipo Scratch -->
-            <g font-family="Atkinson Hyperlegible, sans-serif" font-weight="700" font-size="14">
-              <path d="M20 20h92q6 0 9 6l4 6h120q8 0 8 8v24q0 8-8 8H56l-4 6h-16l-4-6H20q-8 0-8-8V28q0-8 8-8z" fill="#F0A43A"/>
-              <text x="26" y="56" fill="#0E1530">al iniciar la actividad</text>
-              <path d="M32 82h12l4 6h16l4-6h164q8 0 8 8v16q0 8-8 8H92l-4 6H72l-4-6H48v44h24l4 6h16l4-6h100q8 0 8 8v12q0 8-8 8H32q-8 0-8-8V90q0-8 8-8z" fill="#7C9BF2"/>
-              <text x="36" y="104" fill="#0E1530">repetir 4 veces</text>
-              <path d="M56 120h12l4 6h16l4-6h124q8 0 8 8v16q0 8-8 8H96l-4 6H78l-4-6H56q-8 0-8-8v-16q0-8 8-8z" fill="#5FD0B8"/>
-              <text x="58" y="141" fill="#0E1530">avanzar 10 pasos</text>
-              <text x="36" y="177" fill="#0E1530">fin repetir</text>
-              <path d="M32 196h12l4 6h16l4-6h120q8 0 8 8v16q0 8-8 8H32q-8 0-8-8v-16q0-8 8-8z" fill="#E77AA0"/>
-              <text x="36" y="217" fill="#0E1530">mostrar "¡Listo!"</text>
-            </g>
-            <!-- tarjeta de nota -->
-            <g transform="translate(248 140)">
-              <rect width="100" height="96" rx="14" fill="#18224A" stroke="#3A4A8F"/>
-              <text x="14" y="28" font-family="Atkinson Hyperlegible, sans-serif" font-size="11" fill="#9AA3C7">Calificación</text>
-              <text x="14" y="62" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="30" fill="#fff">5.0</text>
-              <rect x="14" y="74" width="72" height="6" rx="3" fill="#24306A"/>
-              <rect x="14" y="74" width="72" height="6" rx="3" fill="#5FD07A"/>
-            </g>
-          </svg>
+        <div class="ilus galeria-lead">
+          <button type="button" class="captura principal" data-galeria='[{"src":"img/proyectos/logicode-inicio.jpg","t":"Página de inicio pública"},{"src":"img/proyectos/logicode-reto-bloques.jpg","t":"El docente crea un reto de bloques con robot y tablero"},{"src":"img/proyectos/logicode-ia.jpg","t":"Calificación con IA: el docente confirma la nota que propone el modelo"},{"src":"img/proyectos/logicode-planilla.jpg","t":"Planilla de notas del curso"},{"src":"img/proyectos/logicode-juego-dfd.jpg","t":"Juego: completa el diagrama de flujo"}]' data-i="0" aria-label="Ver capturas de LogiCode">
+            <span class="cromo" aria-hidden="true"><i></i><i></i><i></i></span>
+            <img src="img/proyectos/logicode-inicio.jpg" alt="Página de inicio de LogiCode" loading="lazy">
+          </button>
+          <div class="miniaturas">
+            <button type="button" class="captura" data-galeria='[{"src":"img/proyectos/logicode-inicio.jpg","t":"Página de inicio pública"},{"src":"img/proyectos/logicode-reto-bloques.jpg","t":"El docente crea un reto de bloques con robot y tablero"},{"src":"img/proyectos/logicode-ia.jpg","t":"Calificación con IA: el docente confirma la nota que propone el modelo"},{"src":"img/proyectos/logicode-planilla.jpg","t":"Planilla de notas del curso"},{"src":"img/proyectos/logicode-juego-dfd.jpg","t":"Juego: completa el diagrama de flujo"}]' data-i="1" aria-label="Ver reto de bloques"><img src="img/proyectos/logicode-reto-bloques.jpg" alt="" loading="lazy"></button>
+            <button type="button" class="captura" data-galeria='[{"src":"img/proyectos/logicode-inicio.jpg","t":"Página de inicio pública"},{"src":"img/proyectos/logicode-reto-bloques.jpg","t":"El docente crea un reto de bloques con robot y tablero"},{"src":"img/proyectos/logicode-ia.jpg","t":"Calificación con IA: el docente confirma la nota que propone el modelo"},{"src":"img/proyectos/logicode-planilla.jpg","t":"Planilla de notas del curso"},{"src":"img/proyectos/logicode-juego-dfd.jpg","t":"Juego: completa el diagrama de flujo"}]' data-i="2" aria-label="Ver calificación con IA"><img src="img/proyectos/logicode-ia.jpg" alt="" loading="lazy"></button>
+            <button type="button" class="captura" data-galeria='[{"src":"img/proyectos/logicode-inicio.jpg","t":"Página de inicio pública"},{"src":"img/proyectos/logicode-reto-bloques.jpg","t":"El docente crea un reto de bloques con robot y tablero"},{"src":"img/proyectos/logicode-ia.jpg","t":"Calificación con IA: el docente confirma la nota que propone el modelo"},{"src":"img/proyectos/logicode-planilla.jpg","t":"Planilla de notas del curso"},{"src":"img/proyectos/logicode-juego-dfd.jpg","t":"Juego: completa el diagrama de flujo"}]' data-i="3" aria-label="Ver planilla de notas"><img src="img/proyectos/logicode-planilla.jpg" alt="" loading="lazy"></button>
+            <button type="button" class="captura mas" data-galeria='[{"src":"img/proyectos/logicode-inicio.jpg","t":"Página de inicio pública"},{"src":"img/proyectos/logicode-reto-bloques.jpg","t":"El docente crea un reto de bloques con robot y tablero"},{"src":"img/proyectos/logicode-ia.jpg","t":"Calificación con IA: el docente confirma la nota que propone el modelo"},{"src":"img/proyectos/logicode-planilla.jpg","t":"Planilla de notas del curso"},{"src":"img/proyectos/logicode-juego-dfd.jpg","t":"Juego: completa el diagrama de flujo"}]' data-i="4" aria-label="Ver juego de diagrama de flujo"><img src="img/proyectos/logicode-juego-dfd.jpg" alt="" loading="lazy"><span>+1</span></button>
+          </div>
         </div>
         <div class="cuerpo">
           <div class="etiquetas"><span class="estado">Versión 1.0.0</span><span class="estado sec2">Piloto en aula</span></div>
@@ -390,32 +417,20 @@
             <li>Tres modos de calificación: manual, automática con un intérprete de PSeInt y quizzes, y con IA usando el modelo Qwen en Ollama.</li>
             <li>Respaldos diarios con prueba de restauración y modo piloto con HTTPS para usarla desde los celulares del aula.</li>
           </ul>
+          <p class="mi-parte"><strong>Mi parte:</strong> backend, frontend, calificación con IA e infraestructura (Docker, respaldos, HTTPS y CI).</p>
           <ul class="stack">
             <li>Java 21</li><li>Spring Boot</li><li>PostgreSQL</li><li>Flyway</li><li>React 19</li><li>Vite</li><li>Docker Compose</li><li>MinIO</li><li>Ollama</li><li>JUnit</li><li>Testcontainers</li><li>GitHub Actions</li>
           </ul>
-          <a class="enlace" href="https://github.com/CarlosEscam/LogiCode-Up">Ver el código de LogiCode</a>
+          <div class="enlaces-p"><a class="enlace" href="https://github.com/CarlosEscam/LogiCode-Up">Ver el código de LogiCode</a><button type="button" class="enlace boton-enlace" data-galeria='[{"src":"img/proyectos/logicode-inicio.jpg","t":"Página de inicio pública"},{"src":"img/proyectos/logicode-reto-bloques.jpg","t":"El docente crea un reto de bloques con robot y tablero"},{"src":"img/proyectos/logicode-ia.jpg","t":"Calificación con IA: el docente confirma la nota que propone el modelo"},{"src":"img/proyectos/logicode-planilla.jpg","t":"Planilla de notas del curso"},{"src":"img/proyectos/logicode-juego-dfd.jpg","t":"Juego: completa el diagrama de flujo"}]' data-i="0">Ver 5 capturas</button></div>
         </div>
       </article>
 
       <!-- LabPar -->
       <article class="p" data-cat="paralela educacion" style="--acento:var(--c-labpar)">
-        <div class="ilus" aria-hidden="true">
-          <svg viewBox="0 0 320 150" fill="none" xmlns="http://www.w3.org/2000/svg" font-family="Atkinson Hyperlegible, sans-serif">
-            <!-- fork-join -->
-            <circle cx="30" cy="75" r="9" fill="#3A63D8"/>
-            <path d="M39 75 C70 75 70 24 100 24 M39 75 C70 75 70 58 100 58 M39 75 C70 75 70 92 100 92 M39 75 C70 75 70 126 100 126" stroke="#3A63D8" stroke-width="2.5"/>
-            <rect x="100" y="16" width="130" height="16" rx="8" fill="#3A63D8"/>
-            <rect x="100" y="50" width="104" height="16" rx="8" fill="#5C80E4"/>
-            <rect x="100" y="84" width="150" height="16" rx="8" fill="#3A63D8"/>
-            <rect x="100" y="118" width="116" height="16" rx="8" fill="#5C80E4"/>
-            <path d="M250 24 C270 24 270 75 290 75 M230 58 C270 58 270 75 290 75 M250 92 C270 92 270 75 290 75 M216 126 C270 126 270 75 290 75" stroke="#3A63D8" stroke-width="2.5" stroke-dasharray="4 4"/>
-            <circle cx="290" cy="75" r="9" fill="#3A63D8"/>
-            <text x="108" y="28" font-size="10" font-weight="700" fill="#fff">hilo 0</text>
-            <text x="108" y="62" font-size="10" font-weight="700" fill="#fff">hilo 1</text>
-            <text x="108" y="96" font-size="10" font-weight="700" fill="#fff">hilo 2</text>
-            <text x="108" y="130" font-size="10" font-weight="700" fill="#fff">hilo 3</text>
-          </svg>
-        </div>
+        <button type="button" class="ilus foto" data-galeria='[{"src":"img/proyectos/labpar-laboratorio.jpg","t":"Laboratorio de OpenMP aceptado con 100 puntos"},{"src":"img/proyectos/labpar-rendimiento.jpg","t":"Rendimiento medido por número de hilos"},{"src":"img/proyectos/labpar-simulador.jpg","t":"Simulador de aceleración: Amdahl y Gustafson"},{"src":"img/proyectos/labpar-progreso.jpg","t":"Progreso de los estudiantes del curso"},{"src":"img/proyectos/labpar-oscuro.jpg","t":"Editor en tema oscuro"}]' data-i="0" aria-label="Ver 5 capturas de LabPar">
+          <img src="img/proyectos/labpar-laboratorio.jpg" alt="Laboratorio de OpenMP aceptado en LabPar" loading="lazy">
+          <span class="contador">5 capturas</span>
+        </button>
         <div class="cuerpo">
           <div class="etiquetas"><span class="estado">Proyecto de curso, 2026</span></div>
           <h3>LabPar</h3>
@@ -425,7 +440,8 @@
             <li>Mide speedup, eficiencia y la fracción serial de Karp–Flatt.</li>
           </ul>
           <ul class="stack"><li>FastAPI</li><li>React</li><li>TypeScript</li><li>PostgreSQL</li><li>OpenMP</li><li>MPI</li><li>CUDA</li><li>Docker</li></ul>
-          <p class="equipo">Con Kevin Rojas y Juan Felipe Portilla.</p>
+          <p class="mi-parte"><strong>Mi parte:</strong> backend y motor de evaluación, frontend, pruebas, CI y Docker.</p>
+          <p class="equipo">Equipo con Kevin Rojas y Juan Felipe Portilla.</p>
           <a class="enlace" href="https://github.com/CarlosEscam/LabPar">Ver el código de LabPar</a>
         </div>
       </article>
@@ -458,37 +474,26 @@
             <li>Retos calificados con el patrón Strategy, niveles y puntos.</li>
             <li>Integración continua con ruff y pytest, cobertura de 90 % o más.</li>
           </ul>
+          <p class="mi-parte"><strong>Mi parte:</strong> backend completo, base de datos, pruebas y CI, diseño y documentación.</p>
           <ul class="stack"><li>FastAPI</li><li>SQLAlchemy</li><li>PostgreSQL</li><li>JWT</li><li>pytest</li><li>Docker</li></ul>
-          <p class="equipo">Con Yarly Guerrero.</p>
-          <a class="enlace" href="https://github.com/CarlosEscam/pensar-platform">Ver el código de PENSAR</a>
+          <p class="equipo">Equipo con Yarly Guerrero.</p>
+          <div class="enlaces-p"><a class="enlace" href="https://github.com/CarlosEscam/pensar-platform">Ver el código de PENSAR</a><button type="button" class="enlace boton-enlace" data-galeria='[{"src":"img/proyectos/pensar-api.jpg","t":"Documentación OpenAPI de la API de PENSAR"}]' data-i="0">Ver la API</button></div>
         </div>
       </article>
 
       <!-- LogiCode Node -->
       <article class="p menor" data-cat="educacion" style="--acento:var(--c-node)">
-        <div class="ilus" aria-hidden="true">
-          <svg viewBox="0 0 260 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <!-- memorama con símbolos de diagrama de flujo -->
-            <g transform="translate(20 14)">
-              <rect width="62" height="88" rx="10" fill="#7C5CE0"/>
-              <rect x="16" y="32" width="30" height="22" rx="11" stroke="#fff" stroke-width="2.5"/>
-            </g>
-            <g transform="translate(99 14)">
-              <rect width="62" height="88" rx="10" fill="#fff" stroke="#C9BCF5" stroke-width="2"/>
-              <path d="M31 28 L49 44 L31 60 L13 44 Z" stroke="#7C5CE0" stroke-width="2.5"/>
-            </g>
-            <g transform="translate(178 14)">
-              <rect width="62" height="88" rx="10" fill="#E4DCFB"/>
-              <text x="31" y="56" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="30" fill="#7C5CE0">?</text>
-            </g>
-          </svg>
-        </div>
+        <button type="button" class="ilus foto" data-galeria='[{"src":"img/proyectos/node-inicio.jpg","t":"Inicio de LogiCode en Next.js"},{"src":"img/proyectos/node-curso.jpg","t":"Temas y materiales de un curso"},{"src":"img/proyectos/node-foro.jpg","t":"Foro por herramienta"}]' data-i="0" aria-label="Ver 3 capturas de LogiCode en Node.js">
+          <img src="img/proyectos/node-inicio.jpg" alt="Inicio de LogiCode en Next.js" loading="lazy">
+          <span class="contador">3 capturas</span>
+        </button>
         <div class="cuerpo">
           <div class="etiquetas"><span class="estado">Otra implementación</span></div>
           <h3>LogiCode en Node.js</h3>
-          <p class="p-desc">Roles, actividades calificadas automáticamente, juegos como el memorama de símbolos y foro público.</p>
+          <p class="p-desc">La primera versión: roles, actividades calificadas automáticamente, juegos y foro público.</p>
+          <p class="mi-parte"><strong>Mi parte:</strong> backend, frontend e infraestructura.</p>
           <ul class="stack"><li>Express</li><li>Prisma</li><li>Next.js</li><li>Tailwind</li></ul>
-          <p class="equipo">Con Yarly Guerrero.</p>
+          <p class="equipo">Equipo con Yarly Guerrero.</p>
           <a class="enlace" href="https://github.com/CarlosEscam/LogiCode">Ver el código</a>
         </div>
       </article>
@@ -635,6 +640,16 @@
             <a class="mini" href="https://github.com/CarlosEscam">Ver perfil</a>
           </li>
           <li class="canal">
+            <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></span>
+            <div><span class="etq">LinkedIn</span><a class="valor" href="https://www.linkedin.com/in/carlos-escamilla-936309290/">linkedin.com/in/carlos-escamilla</a></div>
+            <a class="mini" href="https://www.linkedin.com/in/carlos-escamilla-936309290/">Conectar</a>
+          </li>
+          <li class="canal">
+            <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg></span>
+            <div><span class="etq">Hoja de vida</span><span class="valor">PDF de una página</span></div>
+            <a class="mini" href="cv/CV-Carlos-Escamilla.pdf" download>Descargar</a>
+          </li>
+          <li class="canal">
             <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
             <div><span class="etq">Ubicación</span><span class="valor">Cúcuta, Colombia</span></div>
           </li>
@@ -661,7 +676,21 @@
     </div>
   </section>
 </main>
-<footer><div class="wrap"><span>Carlos Alberto Escamilla Mariño, 2026 · Hecho a mano con HTML, CSS y JavaScript</span><a href="#inicio">Volver arriba</a></div></footer>
+
+<dialog class="visor" id="visor" aria-label="Capturas del proyecto">
+  <figure>
+    <div class="marco"><img id="visor-img" alt=""></div>
+    <figcaption>
+      <p class="texto" id="visor-texto" style="margin:0"></p>
+      <div class="ctrl">
+        <button type="button" id="v-ant">Anterior</button>
+        <button type="button" id="v-sig">Siguiente</button>
+        <button type="button" id="v-cerrar">Cerrar</button>
+      </div>
+    </figcaption>
+  </figure>
+</dialog>
+<footer><div class="wrap"><span>Carlos Alberto Escamilla Mariño, 2026 · Hecho a mano con HTML, CSS y JavaScript</span><span style="display:flex;gap:18px"><a href="https://www.linkedin.com/in/carlos-escamilla-936309290/">LinkedIn</a><a href="https://github.com/CarlosEscam">GitHub</a><a href="#inicio">Volver arriba</a></span></div></footer>
 
 <script>
 (() => {
@@ -786,6 +815,29 @@
     const f = b.dataset.f;
     tarjetas.forEach(p => { p.hidden = !(f === 'todos' || p.dataset.cat.split(' ').includes(f)); });
   }));
+
+
+  /* ---------- Visor de capturas ---------- */
+  const visor = document.getElementById('visor'), vImg = document.getElementById('visor-img'), vTxt = document.getElementById('visor-texto');
+  let gal = [], gi = 0;
+  const mostrar = () => {
+    const it = gal[gi]; vImg.src = it.src; vImg.alt = it.t;
+    vTxt.innerHTML = ''; vTxt.append(it.t);
+    const n = document.createElement('span'); n.textContent = `${gi + 1} de ${gal.length}`; vTxt.append(n);
+    document.getElementById('v-ant').hidden = document.getElementById('v-sig').hidden = gal.length < 2;
+    visor.querySelector('.marco').scrollTop = 0;
+  };
+  document.querySelectorAll('[data-galeria]').forEach(b => b.addEventListener('click', () => {
+    gal = JSON.parse(b.dataset.galeria); gi = +b.dataset.i || 0; mostrar(); visor.showModal();
+  }));
+  document.getElementById('v-ant').addEventListener('click', () => { gi = (gi - 1 + gal.length) % gal.length; mostrar(); });
+  document.getElementById('v-sig').addEventListener('click', () => { gi = (gi + 1) % gal.length; mostrar(); });
+  document.getElementById('v-cerrar').addEventListener('click', () => visor.close());
+  visor.addEventListener('click', e => { if (e.target === visor) visor.close(); });
+  visor.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' && gal.length > 1){ gi = (gi + 1) % gal.length; mostrar(); }
+    if (e.key === 'ArrowLeft' && gal.length > 1){ gi = (gi - 1 + gal.length) % gal.length; mostrar(); }
+  });
 
   /* ---------- Contacto ---------- */
   const CORREO = 'carlosescamilla2023@gmail.com';
