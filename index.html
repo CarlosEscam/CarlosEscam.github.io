@@ -9,6 +9,8 @@
 <meta property="og:description" content="Plataformas educativas, backend y computación paralela. Cúcuta, Colombia.">
 <meta property="og:image" content="https://carlosescam.github.io/preview.png">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#0E1530">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230E1530'/%3E%3Ccircle cx='12' cy='14' r='4' fill='%23F0A43A'/%3E%3Ccircle cx='21' cy='19' r='3' fill='%23F6C47A'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -16,157 +18,280 @@
   :root{
     --noche:#0E1530;
     --noche-2:#18224A;
+    --noche-3:#24306A;
     --papel:#F3F5FA;
     --tinta:#1A2140;
     --ambar:#F0A43A;
+    --ambar-2:#F6C47A;
     --cobalto:#3A63D8;
+    --cielo:#A9BEFF;
     --niebla:#5C6688;
     --linea:#D9DEEC;
+    /* acentos por proyecto */
+    --c-logicode:#F0A43A;
+    --c-labpar:#3A63D8;
+    --c-pensar:#1F9E8F;
+    --c-node:#7C5CE0;
+    --c-desercion:#D9546E;
+    --c-ncuerpos:#4BA3E3;
     --display:"Bricolage Grotesque", system-ui, sans-serif;
     --body:"Atkinson Hyperlegible", system-ui, sans-serif;
   }
   *{box-sizing:border-box}
-  html{scroll-behavior:smooth}
+  html{scroll-behavior:smooth;scroll-padding-top:72px}
   @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
   body{margin:0;background:var(--papel);color:var(--tinta);font-family:var(--body);font-size:1.0625rem;line-height:1.6}
+  img,svg{display:block;max-width:100%}
   a{color:var(--cobalto);text-underline-offset:3px}
-  a:focus-visible,button:focus-visible{outline:3px solid var(--ambar);outline-offset:3px;border-radius:4px}
-  .wrap{max-width:1080px;margin:0 auto;padding-left:28px;padding-right:28px}
+  a:focus-visible,button:focus-visible{outline:3px solid var(--ambar);outline-offset:3px;border-radius:6px}
+  .wrap{max-width:1120px;margin:0 auto;padding-left:28px;padding-right:28px}
+  .num{font-variant-numeric:tabular-nums}
 
-  /* ---------- Hero: simulación de N-cuerpos ---------- */
-  .hero{position:relative;background:var(--noche);color:#EEF1FA;overflow:hidden;min-height:min(92vh,760px);display:flex;flex-direction:column}
-  #cosmos{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:crosshair}
-  .velo{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(14,21,48,.82) 0%,rgba(14,21,48,.45) 42%,rgba(14,21,48,0) 68%)}
-  @media (max-width:860px){.velo{background:linear-gradient(0deg,rgba(14,21,48,.9) 0%,rgba(14,21,48,.6) 55%,rgba(14,21,48,.1) 100%)}}
-  .hero nav{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:22px 0}
-  .hero nav .marca{font-family:var(--display);font-weight:800;font-size:1.15rem;color:#fff;text-decoration:none;letter-spacing:-.01em}
-  .hero nav ul{list-style:none;display:flex;gap:26px;margin:0;padding:0}
-  .hero nav ul a{color:#C9D0EA;text-decoration:none;font-size:.98rem}
-  .hero nav ul a:hover{color:#fff}
-  .hero-body{position:relative;z-index:2;margin-top:auto;padding-bottom:64px;pointer-events:none}
+  /* ---------- Barra fija ---------- */
+  .barra{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(14,21,48,.82);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid rgba(169,190,255,.12);transform:translateY(-100%);transition:transform .3s ease}
+  .barra.visible{transform:none}
+  .barra .wrap{display:flex;justify-content:space-between;align-items:center;height:60px}
+  .barra .marca{display:flex;align-items:center;gap:10px}
+  .barra .marca img{width:30px;height:30px;border-radius:50%}
+  @media (prefers-reduced-motion: reduce){.barra{transition:none}}
+
+  nav .marca{font-family:var(--display);font-weight:800;font-size:1.1rem;color:#fff;text-decoration:none;letter-spacing:-.01em}
+  nav ul{list-style:none;display:flex;gap:6px;margin:0;padding:0}
+  nav ul a{color:#C9D0EA;text-decoration:none;font-size:.95rem;padding:6px 12px;border-radius:999px}
+  nav ul a:hover{color:#fff;background:rgba(169,190,255,.1)}
+  nav ul a.activo{color:var(--noche);background:var(--ambar)}
+
+  /* ---------- Hero ---------- */
+  .hero{position:relative;background:var(--noche);color:#EEF1FA;overflow:hidden;min-height:min(94vh,800px);display:flex;flex-direction:column}
+  #cosmos{position:absolute;inset:0;width:100%;height:100%;cursor:crosshair}
+  .velo{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(14,21,48,.85) 0%,rgba(14,21,48,.45) 42%,rgba(14,21,48,0) 68%)}
+  .hero .top{position:relative;z-index:3;padding-top:22px;padding-bottom:22px}
+  .hero .top nav{display:flex;justify-content:space-between;align-items:center}
+  .hero-body{position:relative;z-index:2;margin-top:auto;padding-bottom:72px;pointer-events:none}
   .hero-body > *{pointer-events:auto}
-  .hero h1{font-family:var(--display);font-weight:800;font-size:clamp(3rem,9vw,7.2rem);line-height:.92;letter-spacing:-.035em;margin:0 0 22px;max-width:9ch}
-  .hero .rol{font-size:clamp(1.1rem,2.2vw,1.35rem);max-width:38ch;color:#D7DCEF;margin:0 0 30px}
+  .saludo{display:inline-flex;align-items:center;gap:10px;font-size:.95rem;color:#C9D0EA;background:rgba(24,34,74,.7);border:1px solid rgba(169,190,255,.18);padding:6px 14px 6px 8px;border-radius:999px;margin-bottom:24px}
+  .saludo .punto{width:9px;height:9px;border-radius:50%;background:#5FD07A;box-shadow:0 0 0 4px rgba(95,208,122,.18)}
+  .hero h1{font-family:var(--display);font-weight:800;font-size:clamp(3.2rem,9.5vw,7.8rem);line-height:.9;letter-spacing:-.04em;margin:0 0 24px;max-width:9ch}
+  .hero h1 .apellido{display:block}
+  .hero .rol{font-size:clamp(1.1rem,2.2vw,1.35rem);max-width:38ch;color:#D7DCEF;margin:0 0 32px}
   .acciones{display:flex;flex-wrap:wrap;gap:12px}
-  .btn{display:inline-block;padding:12px 20px;border-radius:999px;font-weight:700;text-decoration:none;font-size:1rem;border:2px solid transparent}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:999px;font-weight:700;text-decoration:none;font-size:1rem;border:2px solid transparent;font-family:var(--body);cursor:pointer;transition:background .15s,border-color .15s}
   .btn-primario{background:var(--ambar);color:var(--noche)}
-  .btn-primario:hover{background:#F6B85C}
-  .btn-sec{border-color:#56608A;color:#EEF1FA}
+  .btn-primario:hover{background:var(--ambar-2)}
+  .btn-sec{border-color:#56608A;color:#EEF1FA;background:rgba(14,21,48,.4)}
   .btn-sec:hover{border-color:#C9D0EA}
-  .leyenda{position:absolute;z-index:2;right:28px;bottom:24px;font-size:.85rem;color:#8E97BC;max-width:30ch;text-align:right}
-  .leyenda strong{color:#C9D0EA;font-weight:700}
+  .btn svg{width:18px;height:18px}
+
+  /* panel de la simulación */
+  .hud{position:absolute;z-index:3;right:28px;bottom:28px;width:270px;background:rgba(14,21,48,.72);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(169,190,255,.2);border-radius:16px;padding:16px 18px;color:#C9D0EA;font-size:.88rem}
+  .hud strong{display:block;color:#fff;font-family:var(--display);font-weight:600;font-size:1rem;margin-bottom:2px}
+  .hud p{margin:0 0 12px;line-height:1.4}
+  .hud dl{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:0 0 12px}
+  .hud dt{font-size:.75rem;color:#8E97BC}
+  .hud dd{margin:0;color:#fff;font-weight:700;font-size:1.05rem}
+  .hud .controles{display:flex;gap:8px}
+  .hud button{flex:1;font:inherit;font-size:.82rem;font-weight:700;color:#EEF1FA;background:var(--noche-3);border:1px solid rgba(169,190,255,.22);border-radius:8px;padding:7px 8px;cursor:pointer}
+  .hud button:hover{background:#2E3B80}
 
   /* ---------- Secciones ---------- */
-  section{padding:96px 0 0}
-  h2{font-family:var(--display);font-weight:800;font-size:clamp(2rem,4.5vw,3rem);letter-spacing:-.025em;line-height:1;margin:0 0 14px}
-  .intro{max-width:62ch;color:var(--niebla);margin:0 0 44px;font-size:1.1rem}
+  .sec{padding-top:110px}
+  .cabecera{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:40px;flex-wrap:wrap}
+  h2{font-family:var(--display);font-weight:800;font-size:clamp(2.2rem,5vw,3.4rem);letter-spacing:-.03em;line-height:1;margin:0}
+  .intro{max-width:52ch;color:var(--niebla);margin:0;font-size:1.08rem}
 
   /* Sobre mí */
-  .sobre{display:grid;grid-template-columns:1.3fr 1fr;gap:56px;align-items:start}
-  .sobre p{max-width:60ch;margin:0 0 16px}
-  .datos{border-left:3px solid var(--ambar);padding:4px 0 4px 22px}
+  .sobre{display:grid;grid-template-columns:300px 1fr 280px;gap:48px;align-items:center}
+  .orbita{position:relative;width:260px;height:260px;margin:0 auto}
+  .orbita img{position:absolute;inset:30px;width:200px;height:200px;border-radius:50%;object-fit:cover;background:var(--noche-2);box-shadow:0 20px 50px -20px rgba(14,21,48,.6)}
+  .orbita .anillo{position:absolute;inset:0;border-radius:50%;border:1.5px dashed #B9C3E3}
+  .orbita .anillo.b{inset:-18px;border-style:solid;border-color:#E1E6F3}
+  .orbita .satelite{position:absolute;inset:0;animation:girar 14s linear infinite}
+  .orbita .satelite::after{content:"";position:absolute;top:-7px;left:50%;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:var(--ambar);box-shadow:0 0 0 6px rgba(240,164,58,.2)}
+  .orbita .satelite.lento{inset:-18px;animation-duration:26s;animation-direction:reverse}
+  .orbita .satelite.lento::after{width:9px;height:9px;margin-left:-4.5px;top:-4.5px;background:var(--cobalto);box-shadow:0 0 0 5px rgba(58,99,216,.15)}
+  @keyframes girar{to{transform:rotate(360deg)}}
+  @media (prefers-reduced-motion: reduce){.orbita .satelite{animation:none}}
+  .sobre-texto h2{margin-bottom:18px}
+  .sobre-texto p{margin:0 0 14px;max-width:56ch}
+  .datos{background:#fff;border:1px solid var(--linea);border-radius:20px;padding:24px}
   .datos dl{margin:0}
-  .datos dt{font-size:.88rem;color:var(--niebla)}
-  .datos dd{margin:0 0 14px;font-weight:700}
+  .datos dt{font-size:.85rem;color:var(--niebla)}
+  .datos dd{margin:0 0 14px;font-weight:700;line-height:1.35}
+  .datos dd:last-child{margin-bottom:0}
 
   /* Proyectos */
-  .proyectos{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
-  .p{background:#fff;border:1px solid var(--linea);border-radius:18px;padding:28px;display:flex;flex-direction:column;grid-column:span 3}
-  .p.lead{grid-column:span 6;background:var(--noche);color:#EEF1FA;border-color:var(--noche);display:grid;grid-template-columns:1.25fr 1fr;gap:36px;padding:40px}
+  .filtros{display:flex;flex-wrap:wrap;gap:8px}
+  .filtros button{font:inherit;font-size:.92rem;font-weight:700;color:var(--tinta);background:#fff;border:1px solid var(--linea);border-radius:999px;padding:8px 16px;cursor:pointer}
+  .filtros button[aria-pressed="true"]{background:var(--tinta);color:#fff;border-color:var(--tinta)}
+  .proyectos{display:grid;grid-template-columns:repeat(6,1fr);gap:22px}
+  .p{--acento:var(--cobalto);background:#fff;border:1px solid var(--linea);border-radius:22px;overflow:hidden;display:flex;flex-direction:column;grid-column:span 3;transition:transform .2s ease, box-shadow .2s ease}
+  .p:hover{transform:translateY(-3px);box-shadow:0 22px 40px -28px rgba(14,21,48,.45)}
+  @media (prefers-reduced-motion: reduce){.p{transition:none}.p:hover{transform:none}}
+  .p[hidden]{display:none}
+  .p .ilus{background:color-mix(in srgb,var(--acento) 10%,#fff);border-bottom:1px solid color-mix(in srgb,var(--acento) 22%,#fff);height:190px;display:flex;align-items:center;justify-content:center;padding:18px}
+  .p .ilus svg{height:100%;width:auto}
+  .p .cuerpo{padding:26px 28px 28px;display:flex;flex-direction:column;flex:1}
+  .p.lead{grid-column:span 6;background:var(--noche);color:#EEF1FA;border-color:var(--noche);display:grid;grid-template-columns:1.1fr 1fr}
+  .p.lead .ilus{height:auto;min-height:100%;background:radial-gradient(circle at 60% 40%,#24306A,#121A3C 70%);border-bottom:0;border-left:1px solid rgba(169,190,255,.12);order:2;padding:30px}
+  .p.lead .cuerpo{padding:40px}
+  .p.lead .ilus svg{width:100%;max-width:440px;height:auto}
   .p.lead .p-desc{color:#C9D0EA}
-  .p.lead a{color:#A9BEFF}
-  .p.menor{grid-column:span 2;padding:24px}
-  .p h3{font-family:var(--display);font-weight:800;font-size:1.65rem;letter-spacing:-.02em;margin:0 0 6px;line-height:1.1}
-  .p.lead h3{font-size:clamp(2rem,4vw,2.8rem)}
-  .p.menor h3{font-size:1.25rem}
-  .estado{display:inline-block;align-self:flex-start;justify-self:start;font-size:.82rem;font-weight:700;padding:3px 10px;border-radius:999px;background:#E6EBF8;color:var(--tinta);margin-bottom:12px}
+  .p.lead a{color:var(--cielo)}
+  .p.menor{grid-column:span 2}
+  .p.menor .ilus{height:150px}
+  .p h3{font-family:var(--display);font-weight:800;font-size:1.7rem;letter-spacing:-.02em;margin:0 0 6px;line-height:1.1}
+  .p.lead h3{font-size:clamp(2.2rem,4.4vw,3.2rem)}
+  .p.menor h3{font-size:1.3rem}
+  .etiquetas{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+  .estado{font-size:.8rem;font-weight:700;padding:3px 10px;border-radius:999px;background:color-mix(in srgb,var(--acento) 16%,#fff);color:color-mix(in srgb,var(--acento) 70%,#000)}
   .p.lead .estado{background:var(--ambar);color:var(--noche)}
+  .p.lead .estado.sec2{background:var(--noche-3);color:#D7DCEF}
   .p-desc{color:var(--niebla);margin:0 0 14px}
-  .p ul{margin:0 0 18px;padding-left:1.1em}
-  .p li{margin-bottom:6px}
+  .p .puntos{margin:0 0 18px;padding-left:1.1em}
+  .p .puntos li{margin-bottom:6px}
+  .p .puntos li::marker{color:var(--acento)}
   .p .stack{display:flex;flex-wrap:wrap;gap:6px;margin:auto 0 16px;padding:0;list-style:none}
-  .p .stack li{font-size:.82rem;padding:3px 9px;border-radius:6px;background:#EEF1F8;color:#2D3760;margin:0}
+  .p .stack li{font-size:.8rem;padding:3px 9px;border-radius:6px;background:#EEF1F8;color:#2D3760}
+  .p.lead .stack{margin-top:6px}
   .p.lead .stack li{background:var(--noche-2);color:#D7DCEF}
-  .enlace{font-weight:700}
   .equipo{font-size:.9rem;color:var(--niebla);margin:0 0 14px}
   .p.lead .equipo{color:#9AA3C7}
+  .enlace{font-weight:700;display:inline-flex;align-items:center;gap:8px;color:var(--tinta);text-decoration:none;align-self:flex-start;border-bottom:2px solid var(--acento);padding-bottom:2px}
+  .enlace:hover{color:var(--acento)}
+  .p.lead .enlace{color:#fff}
+  .enlace svg{width:18px;height:18px}
 
-  /* Stack */
-  .tabla-stack{display:grid;grid-template-columns:220px 1fr;border-top:1px solid var(--linea)}
-  .tabla-stack div{padding:14px 0;border-bottom:1px solid var(--linea)}
-  .tabla-stack .area{font-family:var(--display);font-weight:600;color:var(--tinta)}
+  /* Tecnologías */
+  .tec{display:grid;grid-template-columns:1fr 1fr;gap:0 56px}
+  .tec-fila{display:grid;grid-template-columns:170px 1fr;gap:18px;padding:20px 0;border-top:1px solid var(--linea);align-items:start}
+  .tec-fila h3{font-family:var(--display);font-weight:600;font-size:1.05rem;margin:4px 0 0}
+  .tec-fila .iconos{height:40px;margin-bottom:10px}
+  .tec-fila p{margin:0;color:var(--niebla);font-size:.98rem}
 
   /* Trayectoria */
   .tray{display:grid;grid-template-columns:1fr 1fr;gap:56px}
-  .tray h3{font-family:var(--display);font-weight:600;font-size:1.25rem;margin:0 0 18px}
+  .tray h3{font-family:var(--display);font-weight:600;font-size:1.25rem;margin:0 0 20px}
   .linea-t{list-style:none;margin:0;padding:0;border-left:2px solid var(--linea)}
-  .linea-t li{position:relative;padding:0 0 26px 24px}
-  .linea-t li::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--papel);border:2px solid var(--cobalto)}
-  .linea-t li.actual::before{background:var(--ambar);border-color:var(--ambar)}
-  .linea-t .cuando{font-size:.88rem;color:var(--niebla)}
-  .linea-t strong{display:block;font-size:1.05rem}
+  .linea-t li{position:relative;padding:0 0 28px 26px}
+  .linea-t li:last-child{padding-bottom:0}
+  .linea-t li::before{content:"";position:absolute;left:-8px;top:5px;width:14px;height:14px;border-radius:50%;background:var(--papel);border:2px solid var(--cobalto)}
+  .linea-t li.actual::before{background:var(--ambar);border-color:var(--ambar);box-shadow:0 0 0 5px rgba(240,164,58,.2)}
+  .linea-t .cuando{font-size:.86rem;color:var(--niebla)}
+  .linea-t strong{display:block;font-size:1.08rem}
   .linea-t p{margin:4px 0 0;color:var(--niebla);max-width:52ch}
 
   /* Contacto */
-  .contacto{margin-top:110px;background:var(--noche);color:#EEF1FA;padding:80px 0}
-  .contacto h2{color:#fff}
-  .contacto p{color:#C9D0EA;max-width:52ch;margin:0 0 30px;font-size:1.1rem}
-  .contacto .correo{font-family:var(--display);font-weight:600;font-size:clamp(1.3rem,3.6vw,2.2rem);color:var(--ambar);text-decoration:none;word-break:break-all}
-  .contacto .correo:hover{text-decoration:underline}
-  .contacto .otros{margin-top:26px;display:flex;gap:22px;flex-wrap:wrap}
-  .contacto .otros a{color:#C9D0EA}
-  footer{background:var(--noche);color:#6F79A0;font-size:.88rem;padding:0 0 34px}
+  .contacto{position:relative;overflow:hidden;margin-top:120px;background:var(--noche);color:#EEF1FA;padding:96px 0}
+  .contacto .orbitas{position:absolute;right:-180px;top:50%;width:620px;height:620px;transform:translateY(-50%);pointer-events:none;opacity:.55}
+  .contacto .wrap{position:relative}
+  .contacto h2{color:#fff;font-size:clamp(2.6rem,7vw,5rem);margin-bottom:18px;max-width:12ch}
+  .contacto p{color:#C9D0EA;max-width:48ch;margin:0 0 34px;font-size:1.12rem}
+  .correo-fila{display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+  .correo{font-family:var(--display);font-weight:600;font-size:clamp(1.25rem,3.4vw,2.1rem);color:var(--ambar);text-decoration:none;word-break:break-all}
+  .correo:hover{text-decoration:underline}
+  .copiar{font:inherit;font-size:.9rem;font-weight:700;color:#EEF1FA;background:var(--noche-3);border:1px solid rgba(169,190,255,.25);border-radius:999px;padding:8px 16px;cursor:pointer}
+  .copiar:hover{background:#2E3B80}
+  .contacto .otros{margin-top:30px;display:flex;gap:12px;flex-wrap:wrap}
+  footer{background:var(--noche);color:#6F79A0;font-size:.88rem;padding:0 0 34px;border-top:1px solid rgba(169,190,255,.08)}
+  footer .wrap{padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
 
-  @media (max-width:860px){
-    .sobre,.tray,.p.lead{grid-template-columns:1fr;gap:32px}
+  @media (max-width:980px){
+    .sobre{grid-template-columns:1fr;gap:36px}
+    .sobre-texto{order:-1}
+    .p.lead{grid-template-columns:1fr}
+    .p.lead .ilus{order:-1;border-left:0;border-bottom:1px solid rgba(169,190,255,.12);height:240px}
+    .p.menor{grid-column:span 3}
+    .tec{grid-template-columns:1fr}
+  }
+  @media (max-width:720px){
     .p,.p.menor{grid-column:span 6}
-    .tabla-stack{grid-template-columns:1fr}
-    .tabla-stack .area{padding-bottom:0;border-bottom:0}
-    .hero nav ul{display:none}
-    .leyenda{position:relative;right:auto;bottom:auto;text-align:left;margin:0 28px 24px}
+    .tray{grid-template-columns:1fr}
+    .hero .top nav ul{display:none}
+    .barra nav ul{display:none}
+    .velo{background:linear-gradient(0deg,rgba(14,21,48,.92) 0%,rgba(14,21,48,.6) 55%,rgba(14,21,48,.1) 100%)}
+    .hud{position:relative;right:auto;bottom:auto;width:auto;margin:0 28px 28px}
+    .hero-body{padding-bottom:36px}
+    .tec-fila{grid-template-columns:1fr;gap:8px}
   }
 </style>
 </head>
 <body>
 
-<header class="hero">
+<header class="barra" id="barra" aria-hidden="true">
+  <div class="wrap">
+    <nav aria-label="Secciones" style="display:flex;justify-content:space-between;align-items:center;width:100%">
+      <a class="marca" href="#" tabindex="-1"><img src="https://avatars.githubusercontent.com/u/137941284?v=4&s=80" alt="">Carlos Escamilla</a>
+      <ul>
+        <li><a href="#sobre" tabindex="-1">Sobre mí</a></li>
+        <li><a href="#proyectos" tabindex="-1">Proyectos</a></li>
+        <li><a href="#tecnologias" tabindex="-1">Tecnologías</a></li>
+        <li><a href="#trayectoria" tabindex="-1">Trayectoria</a></li>
+        <li><a href="#contacto" tabindex="-1">Contacto</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<header class="hero" id="inicio">
   <canvas id="cosmos" aria-hidden="true"></canvas>
   <div class="velo"></div>
-  <div class="wrap" style="position:relative;z-index:2;width:100%">
+  <div class="wrap top" style="width:100%">
     <nav aria-label="Principal">
       <a class="marca" href="#">Carlos Escamilla</a>
       <ul>
+        <li><a href="#sobre">Sobre mí</a></li>
         <li><a href="#proyectos">Proyectos</a></li>
-        <li><a href="#stack">Tecnologías</a></li>
+        <li><a href="#tecnologias">Tecnologías</a></li>
         <li><a href="#trayectoria">Trayectoria</a></li>
         <li><a href="#contacto">Contacto</a></li>
       </ul>
     </nav>
   </div>
   <div class="wrap hero-body" style="width:100%">
-    <h1>Carlos Escamilla</h1>
+    <span class="saludo"><span class="punto"></span>Cúcuta, Colombia · Ingeniería de Sistemas</span>
+    <h1>Carlos <span class="apellido">Escamilla</span></h1>
     <p class="rol">Desarrollador full-stack. Construyo plataformas educativas y estudio cómo hacer que el código corra en paralelo.</p>
     <div class="acciones">
       <a class="btn btn-primario" href="#proyectos">Ver proyectos</a>
-      <a class="btn btn-sec" href="https://github.com/CarlosEscam">GitHub</a>
+      <a class="btn btn-sec" href="https://github.com/CarlosEscam"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>GitHub</a>
       <a class="btn btn-sec" href="#contacto">Contacto</a>
     </div>
   </div>
-  <p class="leyenda"><strong>Simulación de N-cuerpos en vivo</strong>, el tema de mi tesis. Haz clic para añadir una estrella.</p>
+  <aside class="hud" aria-label="Simulación de N-cuerpos">
+    <strong>Simulación de N-cuerpos</strong>
+    <p>El tema de mi tesis, corriendo en vivo en tu navegador. Haz clic en el cielo para añadir estrellas.</p>
+    <dl>
+      <div><dt>Cuerpos</dt><dd class="num" id="h-cuerpos">0</dd></div>
+      <div><dt>Pasos</dt><dd class="num" id="h-pasos">0</dd></div>
+      <div><dt>FPS</dt><dd class="num" id="h-fps">0</dd></div>
+    </dl>
+    <div class="controles">
+      <button type="button" id="b-pausa">Pausar</button>
+      <button type="button" id="b-reiniciar">Reiniciar</button>
+    </div>
+  </aside>
 </header>
 
 <main>
-  <section id="sobre" class="wrap">
+  <!-- ============ SOBRE MÍ ============ -->
+  <section id="sobre" class="wrap sec">
     <div class="sobre">
-      <div>
+      <div class="orbita" aria-hidden="true">
+        <span class="anillo b"></span>
+        <span class="anillo"></span>
+        <img src="https://avatars.githubusercontent.com/u/137941284?v=4&s=400" alt="">
+        <span class="satelite"></span>
+        <span class="satelite lento"></span>
+      </div>
+      <div class="sobre-texto">
         <h2>Sobre mí</h2>
         <p>Estudio noveno semestre de Ingeniería de Sistemas en la Universidad de Pamplona y soy técnico en sistemas del SENA. Trabajo de punta a punta: diseño la base de datos, escribo la API, armo la interfaz y dejo el despliegue y las pruebas automatizadas listos.</p>
-        <p>La mayoría de lo que construyo sirve para enseñar: plataformas para que estudiantes de primer semestre aprendan pensamiento computacional y laboratorios para practicar programación paralela con OpenMP, MPI y CUDA. En mi tesis paralelizo la simulación de N-cuerpos que ves arriba.</p>
+        <p>La mayoría de lo que construyo sirve para enseñar: plataformas para que estudiantes de primer semestre aprendan pensamiento computacional y laboratorios para practicar programación paralela. En mi tesis paralelizo la simulación de N-cuerpos que ves arriba.</p>
       </div>
       <aside class="datos" aria-label="Datos rápidos">
         <dl>
-          <dt>Ubicación</dt><dd>Cúcuta, Colombia</dd>
           <dt>Universidad</dt><dd>Universidad de Pamplona, 9.º semestre</dd>
+          <dt>Formación técnica</dt><dd>Técnico en Sistemas, SENA</dd>
           <dt>Enfoque</dt><dd>Backend, plataformas educativas, computación paralela</dd>
           <dt>Idiomas</dt><dd>Español nativo, inglés A2–B1</dd>
         </dl>
@@ -174,102 +299,243 @@
     </div>
   </section>
 
-  <section id="proyectos" class="wrap">
-    <h2>Proyectos</h2>
-    <p class="intro">Sistemas completos con base de datos, API, interfaz, pruebas e integración continua. Cada uno tiene su código en GitHub.</p>
+  <!-- ============ PROYECTOS ============ -->
+  <section id="proyectos" class="wrap sec">
+    <div class="cabecera">
+      <div>
+        <h2>Proyectos</h2>
+        <p class="intro" style="margin-top:14px">Sistemas completos con base de datos, API, interfaz, pruebas e integración continua.</p>
+      </div>
+      <div class="filtros" role="group" aria-label="Filtrar proyectos">
+        <button type="button" data-f="todos" aria-pressed="true">Todos</button>
+        <button type="button" data-f="educacion" aria-pressed="false">Educación</button>
+        <button type="button" data-f="paralela" aria-pressed="false">Computación paralela</button>
+        <button type="button" data-f="datos" aria-pressed="false">Datos</button>
+      </div>
+    </div>
 
     <div class="proyectos">
-      <article class="p lead">
-        <div>
-          <span class="estado">Versión 1.0.0 · piloto en aula</span>
+      <!-- LogiCode (Spring) -->
+      <article class="p lead" data-cat="educacion" style="--acento:var(--c-logicode)">
+        <div class="ilus" aria-hidden="true">
+          <svg viewBox="0 0 360 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- bloques tipo Scratch -->
+            <g font-family="Atkinson Hyperlegible, sans-serif" font-weight="700" font-size="14">
+              <path d="M20 20h92q6 0 9 6l4 6h120q8 0 8 8v24q0 8-8 8H56l-4 6h-16l-4-6H20q-8 0-8-8V28q0-8 8-8z" fill="#F0A43A"/>
+              <text x="26" y="56" fill="#0E1530">al iniciar la actividad</text>
+              <path d="M32 82h12l4 6h16l4-6h164q8 0 8 8v16q0 8-8 8H92l-4 6H72l-4-6H48v44h24l4 6h16l4-6h100q8 0 8 8v12q0 8-8 8H32q-8 0-8-8V90q0-8 8-8z" fill="#7C9BF2"/>
+              <text x="36" y="104" fill="#0E1530">repetir 4 veces</text>
+              <path d="M56 120h12l4 6h16l4-6h124q8 0 8 8v16q0 8-8 8H96l-4 6H78l-4-6H56q-8 0-8-8v-16q0-8 8-8z" fill="#5FD0B8"/>
+              <text x="58" y="141" fill="#0E1530">avanzar 10 pasos</text>
+              <text x="36" y="177" fill="#0E1530">fin repetir</text>
+              <path d="M32 196h12l4 6h16l4-6h120q8 0 8 8v16q0 8-8 8H32q-8 0-8-8v-16q0-8 8-8z" fill="#E77AA0"/>
+              <text x="36" y="217" fill="#0E1530">mostrar "¡Listo!"</text>
+            </g>
+            <!-- tarjeta de nota -->
+            <g transform="translate(248 140)">
+              <rect width="100" height="96" rx="14" fill="#18224A" stroke="#3A4A8F"/>
+              <text x="14" y="28" font-family="Atkinson Hyperlegible, sans-serif" font-size="11" fill="#9AA3C7">Calificación</text>
+              <text x="14" y="62" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="30" fill="#fff">5.0</text>
+              <rect x="14" y="74" width="72" height="6" rx="3" fill="#24306A"/>
+              <rect x="14" y="74" width="72" height="6" rx="3" fill="#5FD07A"/>
+            </g>
+          </svg>
+        </div>
+        <div class="cuerpo">
+          <div class="etiquetas"><span class="estado">Versión 1.0.0</span><span class="estado sec2">Piloto en aula</span></div>
           <h3>LogiCode</h3>
           <p class="p-desc">Plataforma de Pensamiento Computacional para estudiantes de primer semestre de la Universidad de Pamplona.</p>
-          <ul>
+          <ul class="puntos">
             <li>Cursos, temas, biblioteca de materiales, retos de bloques, juegos, foro moderado y planilla de notas.</li>
             <li>Tres modos de calificación: manual, automática con un intérprete de PSeInt y quizzes, y con IA usando el modelo Qwen en Ollama.</li>
             <li>Respaldos diarios con prueba de restauración y modo piloto con HTTPS para usarla desde los celulares del aula.</li>
           </ul>
-        </div>
-        <div style="display:flex;flex-direction:column">
-          <ul class="stack" style="margin-top:0">
+          <ul class="stack">
             <li>Java 21</li><li>Spring Boot</li><li>PostgreSQL</li><li>Flyway</li><li>React 19</li><li>Vite</li><li>Docker Compose</li><li>MinIO</li><li>Ollama</li><li>JUnit</li><li>Testcontainers</li><li>GitHub Actions</li>
           </ul>
           <a class="enlace" href="https://github.com/CarlosEscam/LogiCode-Up">Ver el código de LogiCode</a>
         </div>
       </article>
 
-      <article class="p">
-        <span class="estado">Proyecto de curso, 2026</span>
-        <h3>LabPar</h3>
-        <p class="p-desc">Plataforma para enseñar programación paralela usando los equipos de la propia universidad.</p>
-        <ul>
-          <li>9 laboratorios virtuales de OpenMP, MPI y CUDA con evaluación automática.</li>
-          <li>Mide speedup, eficiencia y la fracción serial de Karp–Flatt.</li>
-        </ul>
-        <ul class="stack"><li>FastAPI</li><li>React</li><li>TypeScript</li><li>PostgreSQL</li><li>OpenMP</li><li>MPI</li><li>CUDA</li><li>Docker</li></ul>
-        <p class="equipo">Con Kevin Rojas y Juan Felipe Portilla.</p>
-        <a class="enlace" href="https://github.com/CarlosEscam/LabPar">Ver el código de LabPar</a>
+      <!-- LabPar -->
+      <article class="p" data-cat="paralela educacion" style="--acento:var(--c-labpar)">
+        <div class="ilus" aria-hidden="true">
+          <svg viewBox="0 0 320 150" fill="none" xmlns="http://www.w3.org/2000/svg" font-family="Atkinson Hyperlegible, sans-serif">
+            <!-- fork-join -->
+            <circle cx="30" cy="75" r="9" fill="#3A63D8"/>
+            <path d="M39 75 C70 75 70 24 100 24 M39 75 C70 75 70 58 100 58 M39 75 C70 75 70 92 100 92 M39 75 C70 75 70 126 100 126" stroke="#3A63D8" stroke-width="2.5"/>
+            <rect x="100" y="16" width="130" height="16" rx="8" fill="#3A63D8"/>
+            <rect x="100" y="50" width="104" height="16" rx="8" fill="#5C80E4"/>
+            <rect x="100" y="84" width="150" height="16" rx="8" fill="#3A63D8"/>
+            <rect x="100" y="118" width="116" height="16" rx="8" fill="#5C80E4"/>
+            <path d="M250 24 C270 24 270 75 290 75 M230 58 C270 58 270 75 290 75 M250 92 C270 92 270 75 290 75 M216 126 C270 126 270 75 290 75" stroke="#3A63D8" stroke-width="2.5" stroke-dasharray="4 4"/>
+            <circle cx="290" cy="75" r="9" fill="#3A63D8"/>
+            <text x="108" y="28" font-size="10" font-weight="700" fill="#fff">hilo 0</text>
+            <text x="108" y="62" font-size="10" font-weight="700" fill="#fff">hilo 1</text>
+            <text x="108" y="96" font-size="10" font-weight="700" fill="#fff">hilo 2</text>
+            <text x="108" y="130" font-size="10" font-weight="700" fill="#fff">hilo 3</text>
+          </svg>
+        </div>
+        <div class="cuerpo">
+          <div class="etiquetas"><span class="estado">Proyecto de curso, 2026</span></div>
+          <h3>LabPar</h3>
+          <p class="p-desc">Plataforma para enseñar programación paralela usando los equipos de la propia universidad.</p>
+          <ul class="puntos">
+            <li>9 laboratorios virtuales de OpenMP, MPI y CUDA con evaluación automática.</li>
+            <li>Mide speedup, eficiencia y la fracción serial de Karp–Flatt.</li>
+          </ul>
+          <ul class="stack"><li>FastAPI</li><li>React</li><li>TypeScript</li><li>PostgreSQL</li><li>OpenMP</li><li>MPI</li><li>CUDA</li><li>Docker</li></ul>
+          <p class="equipo">Con Kevin Rojas y Juan Felipe Portilla.</p>
+          <a class="enlace" href="https://github.com/CarlosEscam/LabPar">Ver el código de LabPar</a>
+        </div>
       </article>
 
-      <article class="p">
-        <span class="estado">Backend 1.0.0</span>
-        <h3>PENSAR</h3>
-        <p class="p-desc">Plataforma adaptativa para diagnosticar y desarrollar el pensamiento computacional en estudiantes de nuevo ingreso.</p>
-        <ul>
-          <li>Diagnóstico de 28 ítems basado en el test de Román-González.</li>
-          <li>Retos calificados con el patrón Strategy, niveles y puntos.</li>
-          <li>Integración continua con ruff y pytest, cobertura de 90 % o más.</li>
-        </ul>
-        <ul class="stack"><li>FastAPI</li><li>SQLAlchemy</li><li>PostgreSQL</li><li>JWT</li><li>pytest</li><li>Docker</li></ul>
-        <p class="equipo">Con Yarly Guerrero.</p>
-        <a class="enlace" href="https://github.com/CarlosEscam/pensar-platform">Ver el código de PENSAR</a>
+      <!-- PENSAR -->
+      <article class="p" data-cat="educacion datos" style="--acento:var(--c-pensar)">
+        <div class="ilus" aria-hidden="true">
+          <svg viewBox="0 0 320 150" fill="none" xmlns="http://www.w3.org/2000/svg" font-family="Atkinson Hyperlegible, sans-serif" font-size="11" font-weight="700">
+            <g transform="translate(160 75)">
+              <polygon points="0,-58 58,0 0,58 -58,0" stroke="#9FD8CF" stroke-width="1.5"/>
+              <polygon points="0,-38 38,0 0,38 -38,0" stroke="#BDE5DE" stroke-width="1.5"/>
+              <polygon points="0,-19 19,0 0,19 -19,0" stroke="#D6EFEA" stroke-width="1.5"/>
+              <line x1="0" y1="-58" x2="0" y2="58" stroke="#BDE5DE"/>
+              <line x1="-58" y1="0" x2="58" y2="0" stroke="#BDE5DE"/>
+              <polygon points="0,-46 30,0 0,50 -40,0" fill="#1F9E8F" fill-opacity=".25" stroke="#1F9E8F" stroke-width="2.5"/>
+              <circle cx="0" cy="-46" r="4" fill="#1F9E8F"/><circle cx="30" cy="0" r="4" fill="#1F9E8F"/><circle cx="0" cy="50" r="4" fill="#1F9E8F"/><circle cx="-40" cy="0" r="4" fill="#1F9E8F"/>
+              <text x="0" y="-64" text-anchor="middle" fill="#0F5E55">Abstracción</text>
+              <text x="66" y="4" fill="#0F5E55">Patrones</text>
+              <text x="0" y="72" text-anchor="middle" fill="#0F5E55">Algoritmos</text>
+              <text x="-66" y="4" text-anchor="end" fill="#0F5E55">Descomposición</text>
+            </g>
+          </svg>
+        </div>
+        <div class="cuerpo">
+          <div class="etiquetas"><span class="estado">Backend 1.0.0</span></div>
+          <h3>PENSAR</h3>
+          <p class="p-desc">Plataforma adaptativa para diagnosticar y desarrollar el pensamiento computacional en estudiantes de nuevo ingreso.</p>
+          <ul class="puntos">
+            <li>Diagnóstico de 28 ítems basado en el test de Román-González, calificado por dimensión.</li>
+            <li>Retos calificados con el patrón Strategy, niveles y puntos.</li>
+            <li>Integración continua con ruff y pytest, cobertura de 90 % o más.</li>
+          </ul>
+          <ul class="stack"><li>FastAPI</li><li>SQLAlchemy</li><li>PostgreSQL</li><li>JWT</li><li>pytest</li><li>Docker</li></ul>
+          <p class="equipo">Con Yarly Guerrero.</p>
+          <a class="enlace" href="https://github.com/CarlosEscam/pensar-platform">Ver el código de PENSAR</a>
+        </div>
       </article>
 
-      <article class="p menor">
-        <span class="estado">Otra implementación</span>
-        <h3>LogiCode en Node.js</h3>
-        <p class="p-desc">LogiCode construido con Node.js y Next.js: roles, actividades calificadas automáticamente, juegos y foro público. Con Yarly Guerrero.</p>
-        <ul class="stack"><li>Express</li><li>Prisma</li><li>Next.js</li><li>Tailwind</li></ul>
-        <a class="enlace" href="https://github.com/CarlosEscam/LogiCode">Ver el código</a>
+      <!-- LogiCode Node -->
+      <article class="p menor" data-cat="educacion" style="--acento:var(--c-node)">
+        <div class="ilus" aria-hidden="true">
+          <svg viewBox="0 0 260 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- memorama con símbolos de diagrama de flujo -->
+            <g transform="translate(20 14)">
+              <rect width="62" height="88" rx="10" fill="#7C5CE0"/>
+              <rect x="16" y="32" width="30" height="22" rx="11" stroke="#fff" stroke-width="2.5"/>
+            </g>
+            <g transform="translate(99 14)">
+              <rect width="62" height="88" rx="10" fill="#fff" stroke="#C9BCF5" stroke-width="2"/>
+              <path d="M31 28 L49 44 L31 60 L13 44 Z" stroke="#7C5CE0" stroke-width="2.5"/>
+            </g>
+            <g transform="translate(178 14)">
+              <rect width="62" height="88" rx="10" fill="#E4DCFB"/>
+              <text x="31" y="56" text-anchor="middle" font-family="Bricolage Grotesque, sans-serif" font-weight="800" font-size="30" fill="#7C5CE0">?</text>
+            </g>
+          </svg>
+        </div>
+        <div class="cuerpo">
+          <div class="etiquetas"><span class="estado">Otra implementación</span></div>
+          <h3>LogiCode en Node.js</h3>
+          <p class="p-desc">Roles, actividades calificadas automáticamente, juegos como el memorama de símbolos y foro público.</p>
+          <ul class="stack"><li>Express</li><li>Prisma</li><li>Next.js</li><li>Tailwind</li></ul>
+          <p class="equipo">Con Yarly Guerrero.</p>
+          <a class="enlace" href="https://github.com/CarlosEscam/LogiCode">Ver el código</a>
+        </div>
       </article>
 
-      <article class="p menor">
-        <span class="estado">Investigación</span>
-        <h3>Riesgo de deserción</h3>
-        <p class="p-desc">App en Streamlit que compara K-means, DBSCAN, GMM y clustering jerárquico para encontrar perfiles de riesgo de deserción en Cúcuta.</p>
-        <ul class="stack"><li>Python</li><li>Streamlit</li><li>Clustering</li></ul>
-        <p class="equipo">Con Kevin Rojas.</p>
+      <!-- Deserción -->
+      <article class="p menor" data-cat="datos" style="--acento:var(--c-desercion)">
+        <div class="ilus" aria-hidden="true">
+          <svg viewBox="0 0 260 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="62" cy="70" rx="38" ry="28" fill="#D9546E" fill-opacity=".12" stroke="#D9546E" stroke-dasharray="4 4"/>
+            <ellipse cx="140" cy="40" rx="34" ry="24" fill="#3A63D8" fill-opacity=".1" stroke="#3A63D8" stroke-dasharray="4 4"/>
+            <ellipse cx="200" cy="82" rx="36" ry="24" fill="#1F9E8F" fill-opacity=".12" stroke="#1F9E8F" stroke-dasharray="4 4"/>
+            <g fill="#D9546E"><circle cx="48" cy="66" r="4"/><circle cx="60" cy="80" r="4"/><circle cx="72" cy="62" r="4"/><circle cx="80" cy="76" r="4"/><circle cx="52" cy="54" r="4"/><circle cx="66" cy="90" r="4"/></g>
+            <g fill="#3A63D8"><circle cx="128" cy="36" r="4"/><circle cx="142" cy="48" r="4"/><circle cx="154" cy="34" r="4"/><circle cx="136" cy="26" r="4"/><circle cx="150" cy="54" r="4"/></g>
+            <g fill="#1F9E8F"><circle cx="188" cy="80" r="4"/><circle cx="204" cy="90" r="4"/><circle cx="216" cy="76" r="4"/><circle cx="196" cy="70" r="4"/><circle cx="210" cy="98" r="4"/><circle cx="222" cy="88" r="4"/></g>
+          </svg>
+        </div>
+        <div class="cuerpo">
+          <div class="etiquetas"><span class="estado">Investigación</span></div>
+          <h3>Riesgo de deserción</h3>
+          <p class="p-desc">App en Streamlit que compara K-means, DBSCAN, GMM y clustering jerárquico para encontrar perfiles de riesgo de deserción en Cúcuta.</p>
+          <ul class="stack"><li>Python</li><li>Streamlit</li><li>Clustering</li></ul>
+          <p class="equipo">Con Kevin Rojas.</p>
+        </div>
       </article>
 
-      <article class="p menor">
-        <span class="estado">Tesis en curso</span>
-        <h3>N-cuerpos en paralelo</h3>
-        <p class="p-desc">El mismo algoritmo con OpenMP, MPI y OpenCL sobre GPU Radeon, comparando speedup y escalabilidad.</p>
-        <ul class="stack"><li>C/C++</li><li>OpenMP</li><li>MPI</li><li>OpenCL</li></ul>
+      <!-- N-cuerpos -->
+      <article class="p menor" data-cat="paralela" style="--acento:var(--c-ncuerpos)">
+        <div class="ilus" aria-hidden="true">
+          <svg viewBox="0 0 260 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <ellipse cx="130" cy="60" rx="110" ry="42" stroke="#A7D0F1" stroke-width="1.5"/>
+            <ellipse cx="130" cy="60" rx="72" ry="27" stroke="#A7D0F1" stroke-width="1.5"/>
+            <ellipse cx="130" cy="60" rx="36" ry="14" stroke="#A7D0F1" stroke-width="1.5"/>
+            <circle cx="130" cy="60" r="10" fill="#F0A43A"/>
+            <circle cx="130" cy="60" r="18" fill="#F0A43A" fill-opacity=".18"/>
+            <circle cx="200" cy="40" r="5" fill="#4BA3E3"/>
+            <circle cx="62" cy="80" r="4" fill="#4BA3E3"/>
+            <circle cx="236" cy="70" r="6" fill="#3A63D8"/>
+            <circle cx="98" cy="49" r="3.5" fill="#3A63D8"/>
+            <circle cx="30" cy="54" r="3" fill="#4BA3E3"/>
+          </svg>
+        </div>
+        <div class="cuerpo">
+          <div class="etiquetas"><span class="estado">Tesis en curso</span></div>
+          <h3>N-cuerpos en paralelo</h3>
+          <p class="p-desc">El mismo algoritmo con OpenMP, MPI y OpenCL sobre GPU Radeon, comparando speedup y escalabilidad.</p>
+          <ul class="stack"><li>C/C++</li><li>OpenMP</li><li>MPI</li><li>OpenCL</li></ul>
+          <a class="enlace" href="#inicio">Verla correr arriba</a>
+        </div>
       </article>
     </div>
   </section>
 
-  <section id="stack" class="wrap">
-    <h2>Tecnologías</h2>
-    <p class="intro">Lo que he usado en proyectos reales, no solo en cursos.</p>
-    <div class="tabla-stack">
-      <div class="area">Lenguajes</div><div>Python, Java, JavaScript, TypeScript, SQL, C/C++</div>
-      <div class="area">Backend</div><div>FastAPI, SQLAlchemy, Pydantic, Alembic, Spring Boot, Maven, Flyway, Node.js, Express, Prisma</div>
-      <div class="area">Frontend</div><div>React, Next.js, Vite, Tailwind CSS</div>
-      <div class="area">Bases de datos</div><div>PostgreSQL, SQLite</div>
-      <div class="area">Pruebas</div><div>pytest, JUnit, Testcontainers, ArchUnit, supertest</div>
-      <div class="area">DevOps</div><div>Docker, Docker Compose, GitHub Actions, Nginx</div>
-      <div class="area">Computación paralela</div><div>OpenMP, MPI, CUDA, OpenCL</div>
-      <div class="area">Datos y ML</div><div>Clustering (K-means, DBSCAN, GMM, jerárquico), Streamlit, learning analytics</div>
-      <div class="area">Redes</div><div>Cisco Packet Tracer, OSPFv2, VLSM, VLAN, EtherChannel, DHCP, SSH</div>
-      <div class="area">Ingeniería de software</div><div>UML, Scrum, GitHub Flow, Clean Code, refactorización, deuda técnica</div>
+  <!-- ============ TECNOLOGÍAS ============ -->
+  <section id="tecnologias" class="wrap sec">
+    <div class="cabecera">
+      <div>
+        <h2>Tecnologías</h2>
+        <p class="intro" style="margin-top:14px">Lo que he usado en proyectos reales, no solo en cursos.</p>
+      </div>
+    </div>
+    <div class="tec">
+      <div>
+        <div class="tec-fila"><h3>Lenguajes</h3><div><img class="iconos" src="https://skillicons.dev/icons?i=py,java,js,ts,c,cpp&theme=light" alt="" loading="lazy"><p>Python, Java, JavaScript, TypeScript, SQL, C/C++</p></div></div>
+        <div class="tec-fila"><h3>Backend</h3><div><img class="iconos" src="https://skillicons.dev/icons?i=fastapi,spring,nodejs,express,prisma,maven&theme=light" alt="" loading="lazy"><p>FastAPI, SQLAlchemy, Pydantic, Alembic, Spring Boot, Flyway, Node.js, Express, Prisma</p></div></div>
+        <div class="tec-fila"><h3>Frontend</h3><div><img class="iconos" src="https://skillicons.dev/icons?i=react,nextjs,vite,tailwind,html,css&theme=light" alt="" loading="lazy"><p>React, Next.js, Vite, Tailwind CSS</p></div></div>
+        <div class="tec-fila"><h3>Bases de datos</h3><div><img class="iconos" src="https://skillicons.dev/icons?i=postgres,sqlite&theme=light" alt="" loading="lazy"><p>PostgreSQL, SQLite</p></div></div>
+        <div class="tec-fila"><h3>DevOps</h3><div><img class="iconos" src="https://skillicons.dev/icons?i=docker,githubactions,nginx,git,github,linux&theme=light" alt="" loading="lazy"><p>Docker, Docker Compose, GitHub Actions, Nginx, GitHub Flow</p></div></div>
+      </div>
+      <div>
+        <div class="tec-fila"><h3>Computación paralela</h3><div><p>OpenMP, MPI, CUDA, OpenCL. Medición de speedup, eficiencia y escalabilidad.</p></div></div>
+        <div class="tec-fila"><h3>Pruebas</h3><div><p>pytest, JUnit, Testcontainers, ArchUnit, supertest. Cobertura en integración continua.</p></div></div>
+        <div class="tec-fila"><h3>Datos y ML</h3><div><p>Clustering (K-means, DBSCAN, GMM, jerárquico), Streamlit, learning analytics.</p></div></div>
+        <div class="tec-fila"><h3>Redes</h3><div><p>Cisco Packet Tracer, OSPFv2, VLSM, VLAN, EtherChannel, DHCP, SSH.</p></div></div>
+        <div class="tec-fila"><h3>Ingeniería de software</h3><div><p>UML, Scrum, Clean Code, refactorización, gestión de deuda técnica.</p></div></div>
+        <div class="tec-fila"><h3>Hardware</h3><div><img class="iconos" src="https://skillicons.dev/icons?i=arduino&theme=light" alt="" loading="lazy"><p>Arduino</p></div></div>
+      </div>
     </div>
   </section>
 
-  <section id="trayectoria" class="wrap">
-    <h2>Trayectoria</h2>
-    <p class="intro">Formación y experiencia, de la más reciente a la más antigua.</p>
+  <!-- ============ TRAYECTORIA ============ -->
+  <section id="trayectoria" class="wrap sec">
+    <div class="cabecera">
+      <div>
+        <h2>Trayectoria</h2>
+        <p class="intro" style="margin-top:14px">Formación y experiencia, de la más reciente a la más antigua.</p>
+      </div>
+    </div>
     <div class="tray">
       <div>
         <h3>Experiencia</h3>
@@ -294,43 +560,49 @@
             <strong>Ingeniería de Sistemas</strong>
             <p>Universidad de Pamplona, Facultad de Ingenierías y Arquitectura.</p>
           </li>
-          <li>
-            <span class="cuando">SENA</span>
-            <strong>Técnico en Sistemas</strong>
-          </li>
-          <li>
-            <span class="cuando">Técnico</span>
-            <strong>Técnico con Arduino</strong>
-          </li>
-          <li>
-            <span class="cuando">2021</span>
-            <strong>Bachiller</strong>
-            <p>Colegio General Santander, Villa del Rosario.</p>
-          </li>
+          <li><span class="cuando">SENA</span><strong>Técnico en Sistemas</strong></li>
+          <li><span class="cuando">Técnico</span><strong>Técnico con Arduino</strong></li>
+          <li><span class="cuando">2021</span><strong>Bachiller</strong><p>Colegio General Santander, Villa del Rosario.</p></li>
         </ol>
       </div>
     </div>
   </section>
 
+  <!-- ============ CONTACTO ============ -->
   <section id="contacto" class="contacto">
+    <svg class="orbitas" viewBox="0 0 620 620" fill="none" aria-hidden="true">
+      <circle cx="310" cy="310" r="300" stroke="#3A4A8F"/>
+      <circle cx="310" cy="310" r="220" stroke="#3A4A8F" stroke-dasharray="3 6"/>
+      <circle cx="310" cy="310" r="140" stroke="#3A4A8F"/>
+      <circle cx="310" cy="310" r="26" fill="#F0A43A"/>
+      <circle cx="310" cy="310" r="50" fill="#F0A43A" fill-opacity=".12"/>
+      <circle cx="450" cy="310" r="8" fill="#A9BEFF"/>
+      <circle cx="155" cy="155" r="6" fill="#A9BEFF"/>
+      <circle cx="310" cy="10" r="10" fill="#7C9BF2"/>
+    </svg>
     <div class="wrap">
-      <h2>Contacto</h2>
+      <h2>Hablemos</h2>
       <p>¿Tienes un proyecto, una práctica o una vacante en backend, plataformas educativas o computación paralela? Escríbeme.</p>
-      <a class="correo" href="mailto:carlosescamilla2023@gmail.com">carlosescamilla2023@gmail.com</a>
+      <div class="correo-fila">
+        <a class="correo" href="mailto:carlosescamilla2023@gmail.com">carlosescamilla2023@gmail.com</a>
+        <button type="button" class="copiar" id="copiar">Copiar correo</button>
+      </div>
       <div class="otros">
-        <a href="https://github.com/CarlosEscam">github.com/CarlosEscam</a>
+        <a class="btn btn-sec" href="https://github.com/CarlosEscam">github.com/CarlosEscam</a>
       </div>
     </div>
   </section>
 </main>
-<footer><div class="wrap">Carlos Alberto Escamilla Mariño, 2026.</div></footer>
+<footer><div class="wrap"><span>Carlos Alberto Escamilla Mariño, 2026</span><span>Hecho a mano con HTML, CSS y JavaScript</span></div></footer>
 
 <script>
 (() => {
+  /* ---------- Simulación de N-cuerpos ---------- */
   const canvas = document.getElementById('cosmos');
   const ctx = canvas.getContext('2d');
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  let W, H, dpr, bodies = [];
+  const hC = document.getElementById('h-cuerpos'), hP = document.getElementById('h-pasos'), hF = document.getElementById('h-fps');
+  let W, H, dpr, bodies = [], pasos = 0, pausado = false, visible = true;
   const G = 0.9, SOFT = 140, DT = 0.35;
 
   function size(){
@@ -339,11 +611,10 @@
     canvas.width = W * dpr; canvas.height = H * dpr;
     ctx.setTransform(dpr,0,0,dpr,0,0);
   }
-
   function seed(){
-    bodies = [];
-    const cx = W * (W > 860 ? 0.68 : 0.5), cy = H * (W > 860 ? 0.42 : 0.24);
-    // dos estrellas masivas en órbita mutua
+    bodies = []; pasos = 0;
+    const ancho = W > 720;
+    const cx = W * (ancho ? 0.66 : 0.5), cy = H * (ancho ? 0.40 : 0.24);
     const M = 1800, sep = Math.min(W, H) * 0.16;
     const v = Math.sqrt(G * M / (4 * sep)) * 0.9;
     bodies.push({x:cx-sep, y:cy, vx:0, vy:v, m:M, r:6, c:'#F0A43A'});
@@ -353,78 +624,108 @@
       const a = Math.random() * Math.PI * 2;
       const d = sep * (1.6 + Math.random() * 2.6);
       const sp = Math.sqrt(G * 2 * M / d) * (0.92 + Math.random() * 0.12);
-      bodies.push({
-        x: cx + Math.cos(a) * d, y: cy + Math.sin(a) * d,
-        vx: -Math.sin(a) * sp, vy: Math.cos(a) * sp,
-        m: 0.4 + Math.random() * 1.2, r: 0.8 + Math.random() * 1.3,
-        c: Math.random() < 0.25 ? '#A9BEFF' : '#E3E8F7'
-      });
+      bodies.push({x:cx+Math.cos(a)*d, y:cy+Math.sin(a)*d, vx:-Math.sin(a)*sp, vy:Math.cos(a)*sp,
+        m:0.4+Math.random()*1.2, r:0.8+Math.random()*1.3, c:Math.random()<0.25?'#A9BEFF':'#E3E8F7'});
     }
   }
-
   function step(){
-    // directo O(n²) solo entre cuerpos masivos y el resto; los ligeros no se atraen entre sí
     const heavy = bodies.filter(b => b.m > 50);
     for (const b of bodies){
       let ax = 0, ay = 0;
       for (const h of heavy){
         if (h === b) continue;
-        const dx = h.x - b.x, dy = h.y - b.y;
-        const d2 = dx*dx + dy*dy + SOFT;
+        const dx = h.x - b.x, dy = h.y - b.y, d2 = dx*dx + dy*dy + SOFT;
         const inv = G * h.m / (d2 * Math.sqrt(d2));
         ax += dx * inv; ay += dy * inv;
       }
       b.vx += ax * DT; b.vy += ay * DT;
     }
     for (const b of bodies){ b.x += b.vx * DT; b.y += b.vy * DT; }
+    bodies = bodies.filter(b => b.m > 50 || (b.x > -W && b.x < 2*W && b.y > -H && b.y < 2*H));
+    pasos++;
   }
-
   function draw(fade){
     ctx.fillStyle = fade ? 'rgba(14,21,48,0.16)' : '#0E1530';
     ctx.fillRect(0,0,W,H);
     for (const b of bodies){
-      ctx.beginPath();
-      ctx.arc(b.x, b.y, b.r, 0, Math.PI*2);
-      ctx.fillStyle = b.c;
-      ctx.fill();
-      if (b.m > 50){
-        ctx.beginPath();
-        ctx.arc(b.x, b.y, b.r * 3.2, 0, Math.PI*2);
-        ctx.fillStyle = 'rgba(240,164,58,0.14)';
-        ctx.fill();
-      }
+      ctx.beginPath(); ctx.arc(b.x,b.y,b.r,0,Math.PI*2); ctx.fillStyle=b.c; ctx.fill();
+      if (b.m > 50){ ctx.beginPath(); ctx.arc(b.x,b.y,b.r*3.2,0,Math.PI*2); ctx.fillStyle='rgba(240,164,58,0.14)'; ctx.fill(); }
     }
   }
-
-  function loop(){
-    step(); step();
-    draw(true);
-    // recicla cuerpos que escapan lejos
-    for (const b of bodies){
-      if (b.m < 50 && (b.x < -W || b.x > 2*W || b.y < -H || b.y > 2*H)){ b.vx = b.vy = 0; b.x = -9999; }
+  let ultimo = performance.now(), cuadros = 0, acum = 0;
+  function hud(fps){
+    hC.textContent = bodies.length.toLocaleString('es-CO');
+    hP.textContent = pasos.toLocaleString('es-CO');
+    if (fps !== undefined) hF.textContent = fps;
+  }
+  function loop(t){
+    const dt = t - ultimo; ultimo = t;
+    if (!pausado && visible){
+      step(); step(); draw(true);
+      cuadros++; acum += dt;
+      if (acum > 500){ hud(Math.round(cuadros * 1000 / acum)); cuadros = 0; acum = 0; }
     }
     requestAnimationFrame(loop);
   }
-
   canvas.addEventListener('click', e => {
-    const rect = canvas.getBoundingClientRect();
-    const x = e.clientX - rect.left, y = e.clientY - rect.top;
+    const r = canvas.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
     for (let i = 0; i < 14; i++){
-      const a = Math.random() * Math.PI * 2, s = 0.5 + Math.random() * 1.5;
+      const a = Math.random()*Math.PI*2, s = 0.5+Math.random()*1.5;
       bodies.push({x, y, vx:Math.cos(a)*s, vy:Math.sin(a)*s, m:0.8, r:1.2+Math.random(), c:'#F6C47A'});
     }
+    hud(); if (pausado || reduce) draw(false);
   });
+  const bP = document.getElementById('b-pausa');
+  bP.addEventListener('click', () => { pausado = !pausado; bP.textContent = pausado ? 'Continuar' : 'Pausar'; if (pausado) hF.textContent = '0'; });
+  document.getElementById('b-reiniciar').addEventListener('click', () => { seed(); draw(false); hud(); });
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(canvas);
 
   size(); seed();
   if (reduce){
+    pausado = true; bP.textContent = 'Continuar';
     for (let i = 0; i < 400; i++) step();
-    draw(false);
-  } else {
-    draw(false);
-    loop();
-  }
+    draw(false); hud(0);
+  } else { draw(false); hud(0); }
+  requestAnimationFrame(loop);
   let t;
-  addEventListener('resize', () => { clearTimeout(t); t = setTimeout(() => { size(); seed(); draw(false); }, 200); });
+  addEventListener('resize', () => { clearTimeout(t); t = setTimeout(() => { size(); seed(); draw(false); hud(); }, 200); });
+
+  /* ---------- Barra fija y sección activa ---------- */
+  const barra = document.getElementById('barra');
+  const hero = document.getElementById('inicio');
+  new IntersectionObserver(([e]) => {
+    const v = !e.isIntersecting;
+    barra.classList.toggle('visible', v);
+    barra.setAttribute('aria-hidden', String(!v));
+    barra.querySelectorAll('a').forEach(a => a.tabIndex = v ? 0 : -1);
+  }, {threshold: 0.08}).observe(hero);
+  const enlaces = [...barra.querySelectorAll('ul a')];
+  const secciones = enlaces.map(a => document.querySelector(a.getAttribute('href')));
+  const sObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting){
+        enlaces.forEach(a => a.classList.toggle('activo', a.getAttribute('href') === '#' + e.target.id));
+      }
+    });
+  }, {rootMargin: '-45% 0px -50% 0px'});
+  secciones.forEach(s => s && sObs.observe(s));
+
+  /* ---------- Filtros de proyectos ---------- */
+  const botones = [...document.querySelectorAll('.filtros button')];
+  const tarjetas = [...document.querySelectorAll('.proyectos .p')];
+  botones.forEach(b => b.addEventListener('click', () => {
+    botones.forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+    const f = b.dataset.f;
+    tarjetas.forEach(p => { p.hidden = !(f === 'todos' || p.dataset.cat.split(' ').includes(f)); });
+  }));
+
+  /* ---------- Copiar correo ---------- */
+  const copiar = document.getElementById('copiar');
+  copiar.addEventListener('click', async () => {
+    try { await navigator.clipboard.writeText('carlosescamilla2023@gmail.com'); copiar.textContent = 'Correo copiado'; }
+    catch { copiar.textContent = 'No se pudo copiar'; }
+    setTimeout(() => copiar.textContent = 'Copiar correo', 2200);
+  });
 })();
 </script>
 </body>
