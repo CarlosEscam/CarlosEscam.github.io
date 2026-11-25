@@ -181,19 +181,52 @@
   .linea-t p{margin:4px 0 0;color:var(--niebla);max-width:52ch}
 
   /* Contacto */
-  .contacto{position:relative;overflow:hidden;margin-top:120px;background:var(--noche);color:#EEF1FA;padding:96px 0}
-  .contacto .orbitas{position:absolute;right:-180px;top:50%;width:620px;height:620px;transform:translateY(-50%);pointer-events:none;opacity:.55}
-  .contacto .wrap{position:relative}
-  .contacto h2{color:#fff;font-size:clamp(2.6rem,7vw,5rem);margin-bottom:18px;max-width:12ch}
-  .contacto p{color:#C9D0EA;max-width:48ch;margin:0 0 34px;font-size:1.12rem}
-  .correo-fila{display:flex;flex-wrap:wrap;align-items:center;gap:14px}
-  .correo{font-family:var(--display);font-weight:600;font-size:clamp(1.25rem,3.4vw,2.1rem);color:var(--ambar);text-decoration:none;word-break:break-all}
-  .correo:hover{text-decoration:underline}
-  .copiar{font:inherit;font-size:.9rem;font-weight:700;color:#EEF1FA;background:var(--noche-3);border:1px solid rgba(169,190,255,.25);border-radius:999px;padding:8px 16px;cursor:pointer}
-  .copiar:hover{background:#2E3B80}
-  .contacto .otros{margin-top:30px;display:flex;gap:12px;flex-wrap:wrap}
+  .contacto{position:relative;overflow:hidden;margin-top:120px;background:var(--noche);color:#EEF1FA;padding:110px 0 100px}
+  .contacto::before{content:"";position:absolute;inset:0;background:radial-gradient(60% 70% at 78% 45%,rgba(58,99,216,.22),transparent 70%);pointer-events:none}
+  .contacto .orbitas{position:absolute;left:72%;top:50%;width:760px;height:760px;margin:-380px 0 0 -380px;pointer-events:none;opacity:.6;animation:girar 120s linear infinite}
+  @media (prefers-reduced-motion: reduce){.contacto .orbitas{animation:none}}
+  .contacto .wrap{position:relative;display:grid;grid-template-columns:1fr 460px;gap:64px;align-items:start}
+  .contacto h2{color:#fff;font-size:clamp(3rem,7.5vw,5.6rem);margin:0 0 20px}
+  .contacto .lead-c{color:#C9D0EA;max-width:44ch;margin:0 0 36px;font-size:1.15rem}
+  .canales{list-style:none;margin:0 0 30px;padding:0;display:grid;gap:12px;max-width:520px}
+  .canal{display:grid;grid-template-columns:48px 1fr auto;gap:16px;align-items:center;background:rgba(24,34,74,.6);border:1px solid rgba(169,190,255,.14);border-radius:16px;padding:14px 16px;transition:border-color .15s, background .15s}
+  .canal:hover{border-color:rgba(169,190,255,.35);background:rgba(36,48,106,.6)}
+  .canal .ico{width:48px;height:48px;border-radius:12px;display:grid;place-items:center;background:var(--noche-3);color:var(--ambar)}
+  .canal .ico svg{width:22px;height:22px}
+  .canal .etq{display:block;font-size:.82rem;color:#8E97BC}
+  .canal a.valor,.canal .valor{color:#fff;font-weight:700;text-decoration:none;overflow-wrap:anywhere;font-size:1.02rem}
+  .canal a.valor:hover{color:var(--ambar)}
+  .mini{font:inherit;font-size:.85rem;font-weight:700;color:#EEF1FA;background:transparent;border:1px solid rgba(169,190,255,.3);border-radius:999px;padding:7px 14px;cursor:pointer;white-space:nowrap;text-decoration:none}
+  .mini:hover{background:var(--noche-3);border-color:rgba(169,190,255,.55)}
+  .mini.ok{background:#1D5B3A;border-color:#2F8A57}
+  .reloj{display:flex;align-items:center;gap:10px;color:#9AA3C7;font-size:.95rem}
+  .reloj .punto{width:9px;height:9px;border-radius:50%;background:#5FD07A;box-shadow:0 0 0 4px rgba(95,208,122,.18)}
+  .reloj strong{color:#EEF1FA}
+
+  .form-c{background:rgba(14,21,48,.7);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(169,190,255,.2);border-radius:24px;padding:30px;box-shadow:0 30px 80px -40px rgba(0,0,0,.7)}
+  .form-c h3{font-family:var(--display);font-weight:800;font-size:1.6rem;letter-spacing:-.02em;margin:0 0 6px;color:#fff}
+  .form-c > p{color:#9AA3C7;margin:0 0 22px;font-size:.95rem}
+  .motivos{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px;padding:0;border:0}
+  .motivos legend{font-size:.85rem;color:#C9D0EA;margin-bottom:8px;padding:0}
+  .motivos label{position:relative}
+  .motivos input{position:absolute;opacity:0;inset:0;cursor:pointer}
+  .motivos span{display:inline-block;font-size:.9rem;font-weight:700;padding:7px 14px;border-radius:999px;border:1px solid rgba(169,190,255,.28);color:#D7DCEF}
+  .motivos input:checked + span{background:var(--ambar);border-color:var(--ambar);color:var(--noche)}
+  .motivos input:focus-visible + span{outline:3px solid var(--ambar);outline-offset:2px}
+  .campo{display:block;margin-bottom:16px}
+  .campo span{display:block;font-size:.85rem;color:#C9D0EA;margin-bottom:6px}
+  .campo input,.campo textarea{width:100%;font:inherit;font-size:1rem;color:#fff;background:var(--noche-2);border:1px solid rgba(169,190,255,.2);border-radius:12px;padding:12px 14px;resize:vertical}
+  .campo input::placeholder,.campo textarea::placeholder{color:#6F79A0}
+  .campo input:focus,.campo textarea:focus{outline:none;border-color:var(--ambar);box-shadow:0 0 0 3px rgba(240,164,58,.25)}
+  .form-c .btn{width:100%;justify-content:center;margin-top:4px}
+  .form-c .nota{font-size:.82rem;color:#8E97BC;margin:12px 0 0;text-align:center}
+  .form-c .error{color:#FF9DA9;font-size:.88rem;margin:8px 0 0;text-align:center}
+  .form-c .error:empty{display:none}
+
   footer{background:var(--noche);color:#6F79A0;font-size:.88rem;padding:0 0 34px;border-top:1px solid rgba(169,190,255,.08)}
-  footer .wrap{padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  footer .wrap{padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px}
+  footer a{color:#C9D0EA;text-decoration:none}
+  footer a:hover{color:#fff}
 
   @media (max-width:980px){
     .sobre{grid-template-columns:1fr;gap:36px}
@@ -202,6 +235,8 @@
     .p.lead .ilus{order:-1;border-left:0;border-bottom:1px solid rgba(169,190,255,.12);height:240px}
     .p.menor{grid-column:span 3}
     .tec{grid-template-columns:1fr}
+    .contacto .wrap{grid-template-columns:1fr;gap:48px}
+    .contacto .orbitas{left:85%;top:20%}
   }
   @media (max-width:720px){
     .p,.p.menor{grid-column:span 6}
@@ -212,6 +247,11 @@
     .hud{position:relative;right:auto;bottom:auto;width:auto;margin:0 28px 28px}
     .hero-body{padding-bottom:36px}
     .tec-fila{grid-template-columns:1fr;gap:8px}
+    .canal{grid-template-columns:40px 1fr;}
+    .canal a.valor,.canal .valor{font-size:.9rem}
+    .canal .ico{width:40px;height:40px}
+    .canal .mini{grid-column:2;justify-self:start}
+    .form-c{padding:22px}
   }
 </style>
 </head>
@@ -570,30 +610,58 @@
 
   <!-- ============ CONTACTO ============ -->
   <section id="contacto" class="contacto">
-    <svg class="orbitas" viewBox="0 0 620 620" fill="none" aria-hidden="true">
-      <circle cx="310" cy="310" r="300" stroke="#3A4A8F"/>
-      <circle cx="310" cy="310" r="220" stroke="#3A4A8F" stroke-dasharray="3 6"/>
-      <circle cx="310" cy="310" r="140" stroke="#3A4A8F"/>
-      <circle cx="310" cy="310" r="26" fill="#F0A43A"/>
-      <circle cx="310" cy="310" r="50" fill="#F0A43A" fill-opacity=".12"/>
-      <circle cx="450" cy="310" r="8" fill="#A9BEFF"/>
-      <circle cx="155" cy="155" r="6" fill="#A9BEFF"/>
-      <circle cx="310" cy="10" r="10" fill="#7C9BF2"/>
+    <svg class="orbitas" viewBox="0 0 760 760" fill="none" aria-hidden="true">
+      <circle cx="380" cy="380" r="370" stroke="#2E3B80"/>
+      <circle cx="380" cy="380" r="280" stroke="#2E3B80" stroke-dasharray="3 7"/>
+      <circle cx="380" cy="380" r="190" stroke="#2E3B80"/>
+      <circle cx="380" cy="10" r="9" fill="#7C9BF2"/>
+      <circle cx="660" cy="380" r="6" fill="#A9BEFF"/>
+      <circle cx="245" cy="215" r="5" fill="#F6C47A"/>
+      <circle cx="120" cy="560" r="7" fill="#A9BEFF"/>
     </svg>
     <div class="wrap">
-      <h2>Hablemos</h2>
-      <p>¿Tienes un proyecto, una práctica o una vacante en backend, plataformas educativas o computación paralela? Escríbeme.</p>
-      <div class="correo-fila">
-        <a class="correo" href="mailto:carlosescamilla2023@gmail.com">carlosescamilla2023@gmail.com</a>
-        <button type="button" class="copiar" id="copiar">Copiar correo</button>
+      <div>
+        <h2>Hablemos</h2>
+        <p class="lead-c">¿Tienes un proyecto, una práctica o una vacante en backend, plataformas educativas o computación paralela? Escríbeme y conversamos.</p>
+        <ul class="canales">
+          <li class="canal">
+            <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+            <div><span class="etq">Correo</span><a class="valor" href="mailto:carlosescamilla2023@gmail.com">carlosescamilla2023@gmail.com</a></div>
+            <button type="button" class="mini" id="copiar">Copiar</button>
+          </li>
+          <li class="canal">
+            <span class="ico" aria-hidden="true"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg></span>
+            <div><span class="etq">GitHub</span><a class="valor" href="https://github.com/CarlosEscam">github.com/CarlosEscam</a></div>
+            <a class="mini" href="https://github.com/CarlosEscam">Ver perfil</a>
+          </li>
+          <li class="canal">
+            <span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span>
+            <div><span class="etq">Ubicación</span><span class="valor">Cúcuta, Colombia</span></div>
+          </li>
+        </ul>
+        <p class="reloj"><span class="punto" aria-hidden="true"></span><span>En Cúcuta son las <strong class="num" id="hora">--:--</strong> (UTC−5)</span></p>
       </div>
-      <div class="otros">
-        <a class="btn btn-sec" href="https://github.com/CarlosEscam">github.com/CarlosEscam</a>
-      </div>
+
+      <form class="form-c" id="form-contacto" novalidate>
+        <h3>Escríbeme directo</h3>
+        <p>Llena esto y se abre tu app de correo con el mensaje listo para enviar.</p>
+        <fieldset class="motivos">
+          <legend>¿De qué se trata?</legend>
+          <label><input type="radio" name="motivo" value="Proyecto" checked><span>Proyecto</span></label>
+          <label><input type="radio" name="motivo" value="Práctica"><span>Práctica</span></label>
+          <label><input type="radio" name="motivo" value="Vacante"><span>Vacante</span></label>
+          <label><input type="radio" name="motivo" value="Otro tema"><span>Otro</span></label>
+        </fieldset>
+        <label class="campo"><span>Tu nombre</span><input type="text" name="nombre" autocomplete="name" placeholder="Ej.: Ana Pérez"></label>
+        <label class="campo"><span>Mensaje</span><textarea name="mensaje" rows="4" placeholder="Cuéntame en pocas líneas qué tienes en mente."></textarea></label>
+        <button type="submit" class="btn btn-primario">Abrir en mi correo</button>
+        <p class="error" id="error-form" role="alert"></p>
+        <p class="nota">No se guarda nada en esta página.</p>
+      </form>
     </div>
   </section>
 </main>
-<footer><div class="wrap"><span>Carlos Alberto Escamilla Mariño, 2026</span><span>Hecho a mano con HTML, CSS y JavaScript</span></div></footer>
+<footer><div class="wrap"><span>Carlos Alberto Escamilla Mariño, 2026 · Hecho a mano con HTML, CSS y JavaScript</span><a href="#inicio">Volver arriba</a></div></footer>
 
 <script>
 (() => {
@@ -719,12 +787,32 @@
     tarjetas.forEach(p => { p.hidden = !(f === 'todos' || p.dataset.cat.split(' ').includes(f)); });
   }));
 
-  /* ---------- Copiar correo ---------- */
+  /* ---------- Contacto ---------- */
+  const CORREO = 'carlosescamilla2023@gmail.com';
   const copiar = document.getElementById('copiar');
   copiar.addEventListener('click', async () => {
-    try { await navigator.clipboard.writeText('carlosescamilla2023@gmail.com'); copiar.textContent = 'Correo copiado'; }
-    catch { copiar.textContent = 'No se pudo copiar'; }
-    setTimeout(() => copiar.textContent = 'Copiar correo', 2200);
+    try { await navigator.clipboard.writeText(CORREO); copiar.textContent = 'Copiado'; copiar.classList.add('ok'); }
+    catch { copiar.textContent = 'Cópialo a mano'; }
+    setTimeout(() => { copiar.textContent = 'Copiar'; copiar.classList.remove('ok'); }, 2200);
+  });
+
+  const hora = document.getElementById('hora');
+  const fmt = new Intl.DateTimeFormat('es-CO', {hour:'numeric', minute:'2-digit', timeZone:'America/Bogota'});
+  const tic = () => { hora.textContent = fmt.format(new Date()); };
+  tic(); setInterval(tic, 30000);
+
+  const form = document.getElementById('form-contacto');
+  const err = document.getElementById('error-form');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const d = new FormData(form);
+    const nombre = (d.get('nombre') || '').trim();
+    const mensaje = (d.get('mensaje') || '').trim();
+    if (!mensaje){ err.textContent = 'Escribe un mensaje antes de abrir el correo.'; form.mensaje.focus(); return; }
+    err.textContent = '';
+    const asunto = `${d.get('motivo')} — contacto desde el portafolio`;
+    const cuerpo = `Hola, Carlos:\n\n${mensaje}\n\n${nombre ? nombre : ''}`.trim();
+    location.href = `mailto:${CORREO}?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpo)}`;
   });
 })();
 </script>
