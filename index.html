@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Carlos Escamilla — Desarrollador full-stack</title>
+<meta name="description" content="Portafolio de Carlos Alberto Escamilla Mariño, estudiante de Ingeniería de Sistemas en la Universidad de Pamplona. Plataformas educativas, backend y computación paralela.">
+<meta property="og:title" content="Carlos Escamilla — Desarrollador full-stack">
+<meta property="og:description" content="Plataformas educativas, backend y computación paralela. Cúcuta, Colombia.">
+<meta property="og:image" content="https://carlosescam.github.io/preview.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --noche:#0E1530;
+    --noche-2:#18224A;
+    --papel:#F3F5FA;
+    --tinta:#1A2140;
+    --ambar:#F0A43A;
+    --cobalto:#3A63D8;
+    --niebla:#5C6688;
+    --linea:#D9DEEC;
+    --display:"Bricolage Grotesque", system-ui, sans-serif;
+    --body:"Atkinson Hyperlegible", system-ui, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+  body{margin:0;background:var(--papel);color:var(--tinta);font-family:var(--body);font-size:1.0625rem;line-height:1.6}
+  a{color:var(--cobalto);text-underline-offset:3px}
+  a:focus-visible,button:focus-visible{outline:3px solid var(--ambar);outline-offset:3px;border-radius:4px}
+  .wrap{max-width:1080px;margin:0 auto;padding-left:28px;padding-right:28px}
+
+  /* ---------- Hero: simulación de N-cuerpos ---------- */
+  .hero{position:relative;background:var(--noche);color:#EEF1FA;overflow:hidden;min-height:min(92vh,760px);display:flex;flex-direction:column}
+  #cosmos{position:absolute;inset:0;width:100%;height:100%;display:block;cursor:crosshair}
+  .velo{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(14,21,48,.82) 0%,rgba(14,21,48,.45) 42%,rgba(14,21,48,0) 68%)}
+  @media (max-width:860px){.velo{background:linear-gradient(0deg,rgba(14,21,48,.9) 0%,rgba(14,21,48,.6) 55%,rgba(14,21,48,.1) 100%)}}
+  .hero nav{position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center;padding:22px 0}
+  .hero nav .marca{font-family:var(--display);font-weight:800;font-size:1.15rem;color:#fff;text-decoration:none;letter-spacing:-.01em}
+  .hero nav ul{list-style:none;display:flex;gap:26px;margin:0;padding:0}
+  .hero nav ul a{color:#C9D0EA;text-decoration:none;font-size:.98rem}
+  .hero nav ul a:hover{color:#fff}
+  .hero-body{position:relative;z-index:2;margin-top:auto;padding-bottom:64px;pointer-events:none}
+  .hero-body > *{pointer-events:auto}
+  .hero h1{font-family:var(--display);font-weight:800;font-size:clamp(3rem,9vw,7.2rem);line-height:.92;letter-spacing:-.035em;margin:0 0 22px;max-width:9ch}
+  .hero .rol{font-size:clamp(1.1rem,2.2vw,1.35rem);max-width:38ch;color:#D7DCEF;margin:0 0 30px}
+  .acciones{display:flex;flex-wrap:wrap;gap:12px}
+  .btn{display:inline-block;padding:12px 20px;border-radius:999px;font-weight:700;text-decoration:none;font-size:1rem;border:2px solid transparent}
+  .btn-primario{background:var(--ambar);color:var(--noche)}
+  .btn-primario:hover{background:#F6B85C}
+  .btn-sec{border-color:#56608A;color:#EEF1FA}
+  .btn-sec:hover{border-color:#C9D0EA}
+  .leyenda{position:absolute;z-index:2;right:28px;bottom:24px;font-size:.85rem;color:#8E97BC;max-width:30ch;text-align:right}
+  .leyenda strong{color:#C9D0EA;font-weight:700}
+
+  /* ---------- Secciones ---------- */
+  section{padding:96px 0 0}
+  h2{font-family:var(--display);font-weight:800;font-size:clamp(2rem,4.5vw,3rem);letter-spacing:-.025em;line-height:1;margin:0 0 14px}
+  .intro{max-width:62ch;color:var(--niebla);margin:0 0 44px;font-size:1.1rem}
+
+  /* Sobre mí */
+  .sobre{display:grid;grid-template-columns:1.3fr 1fr;gap:56px;align-items:start}
+  .sobre p{max-width:60ch;margin:0 0 16px}
+  .datos{border-left:3px solid var(--ambar);padding:4px 0 4px 22px}
+  .datos dl{margin:0}
+  .datos dt{font-size:.88rem;color:var(--niebla)}
+  .datos dd{margin:0 0 14px;font-weight:700}
+
+  /* Proyectos */
+  .proyectos{display:grid;grid-template-columns:repeat(6,1fr);gap:20px}
+  .p{background:#fff;border:1px solid var(--linea);border-radius:18px;padding:28px;display:flex;flex-direction:column;grid-column:span 3}
+  .p.lead{grid-column:span 6;background:var(--noche);color:#EEF1FA;border-color:var(--noche);display:grid;grid-template-columns:1.25fr 1fr;gap:36px;padding:40px}
+  .p.lead .p-desc{color:#C9D0EA}
+  .p.lead a{color:#A9BEFF}
+  .p.menor{grid-column:span 2;padding:24px}
+  .p h3{font-family:var(--display);font-weight:800;font-size:1.65rem;letter-spacing:-.02em;margin:0 0 6px;line-height:1.1}
+  .p.lead h3{font-size:clamp(2rem,4vw,2.8rem)}
+  .p.menor h3{font-size:1.25rem}
+  .estado{display:inline-block;align-self:flex-start;justify-self:start;font-size:.82rem;font-weight:700;padding:3px 10px;border-radius:999px;background:#E6EBF8;color:var(--tinta);margin-bottom:12px}
+  .p.lead .estado{background:var(--ambar);color:var(--noche)}
+  .p-desc{color:var(--niebla);margin:0 0 14px}
+  .p ul{margin:0 0 18px;padding-left:1.1em}
+  .p li{margin-bottom:6px}
+  .p .stack{display:flex;flex-wrap:wrap;gap:6px;margin:auto 0 16px;padding:0;list-style:none}
+  .p .stack li{font-size:.82rem;padding:3px 9px;border-radius:6px;background:#EEF1F8;color:#2D3760;margin:0}
+  .p.lead .stack li{background:var(--noche-2);color:#D7DCEF}
+  .enlace{font-weight:700}
+  .equipo{font-size:.9rem;color:var(--niebla);margin:0 0 14px}
+  .p.lead .equipo{color:#9AA3C7}
+
+  /* Stack */
+  .tabla-stack{display:grid;grid-template-columns:220px 1fr;border-top:1px solid var(--linea)}
+  .tabla-stack div{padding:14px 0;border-bottom:1px solid var(--linea)}
+  .tabla-stack .area{font-family:var(--display);font-weight:600;color:var(--tinta)}
+
+  /* Trayectoria */
+  .tray{display:grid;grid-template-columns:1fr 1fr;gap:56px}
+  .tray h3{font-family:var(--display);font-weight:600;font-size:1.25rem;margin:0 0 18px}
+  .linea-t{list-style:none;margin:0;padding:0;border-left:2px solid var(--linea)}
+  .linea-t li{position:relative;padding:0 0 26px 24px}
+  .linea-t li::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--papel);border:2px solid var(--cobalto)}
+  .linea-t li.actual::before{background:var(--ambar);border-color:var(--ambar)}
+  .linea-t .cuando{font-size:.88rem;color:var(--niebla)}
+  .linea-t strong{display:block;font-size:1.05rem}
+  .linea-t p{margin:4px 0 0;color:var(--niebla);max-width:52ch}
+
+  /* Contacto */
+  .contacto{margin-top:110px;background:var(--noche);color:#EEF1FA;padding:80px 0}
+  .contacto h2{color:#fff}
+  .contacto p{color:#C9D0EA;max-width:52ch;margin:0 0 30px;font-size:1.1rem}
+  .contacto .correo{font-family:var(--display);font-weight:600;font-size:clamp(1.3rem,3.6vw,2.2rem);color:var(--ambar);text-decoration:none;word-break:break-all}
+  .contacto .correo:hover{text-decoration:underline}
+  .contacto .otros{margin-top:26px;display:flex;gap:22px;flex-wrap:wrap}
+  .contacto .otros a{color:#C9D0EA}
+  footer{background:var(--noche);color:#6F79A0;font-size:.88rem;padding:0 0 34px}
+
+  @media (max-width:860px){
+    .sobre,.tray,.p.lead{grid-template-columns:1fr;gap:32px}
+    .p,.p.menor{grid-column:span 6}
+    .tabla-stack{grid-template-columns:1fr}
+    .tabla-stack .area{padding-bottom:0;border-bottom:0}
+    .hero nav ul{display:none}
+    .leyenda{position:relative;right:auto;bottom:auto;text-align:left;margin:0 28px 24px}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <canvas id="cosmos" aria-hidden="true"></canvas>
+  <div class="velo"></div>
+  <div class="wrap" style="position:relative;z-index:2;width:100%">
+    <nav aria-label="Principal">
+      <a class="marca" href="#">Carlos Escamilla</a>
+      <ul>
+        <li><a href="#proyectos">Proyectos</a></li>
+        <li><a href="#stack">Tecnologías</a></li>
+        <li><a href="#trayectoria">Trayectoria</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="wrap hero-body" style="width:100%">
+    <h1>Carlos Escamilla</h1>
+    <p class="rol">Desarrollador full-stack. Construyo plataformas educativas y estudio cómo hacer que el código corra en paralelo.</p>
+    <div class="acciones">
+      <a class="btn btn-primario" href="#proyectos">Ver proyectos</a>
+      <a class="btn btn-sec" href="https://github.com/CarlosEscam">GitHub</a>
+      <a class="btn btn-sec" href="#contacto">Contacto</a>
+    </div>
+  </div>
+  <p class="leyenda"><strong>Simulación de N-cuerpos en vivo</strong>, el tema de mi tesis. Haz clic para añadir una estrella.</p>
+</header>
+
+<main>
+  <section id="sobre" class="wrap">
+    <div class="sobre">
+      <div>
+        <h2>Sobre mí</h2>
+        <p>Estudio noveno semestre de Ingeniería de Sistemas en la Universidad de Pamplona y soy técnico en sistemas del SENA. Trabajo de punta a punta: diseño la base de datos, escribo la API, armo la interfaz y dejo el despliegue y las pruebas automatizadas listos.</p>
+        <p>La mayoría de lo que construyo sirve para enseñar: plataformas para que estudiantes de primer semestre aprendan pensamiento computacional y laboratorios para practicar programación paralela con OpenMP, MPI y CUDA. En mi tesis paralelizo la simulación de N-cuerpos que ves arriba.</p>
+      </div>
+      <aside class="datos" aria-label="Datos rápidos">
+        <dl>
+          <dt>Ubicación</dt><dd>Cúcuta, Colombia</dd>
+          <dt>Universidad</dt><dd>Universidad de Pamplona, 9.º semestre</dd>
+          <dt>Enfoque</dt><dd>Backend, plataformas educativas, computación paralela</dd>
+          <dt>Idiomas</dt><dd>Español nativo, inglés A2–B1</dd>
+        </dl>
+      </aside>
+    </div>
+  </section>
+
+  <section id="proyectos" class="wrap">
+    <h2>Proyectos</h2>
+    <p class="intro">Sistemas completos con base de datos, API, interfaz, pruebas e integración continua. Cada uno tiene su código en GitHub.</p>
+
+    <div class="proyectos">
+      <article class="p lead">
+        <div>
+          <span class="estado">Versión 1.0.0 · piloto en aula</span>
+          <h3>LogiCode</h3>
+          <p class="p-desc">Plataforma de Pensamiento Computacional para estudiantes de primer semestre de la Universidad de Pamplona.</p>
+          <ul>
+            <li>Cursos, temas, biblioteca de materiales, retos de bloques, juegos, foro moderado y planilla de notas.</li>
+            <li>Tres modos de calificación: manual, automática con un intérprete de PSeInt y quizzes, y con IA usando el modelo Qwen en Ollama.</li>
+            <li>Respaldos diarios con prueba de restauración y modo piloto con HTTPS para usarla desde los celulares del aula.</li>
+          </ul>
+        </div>
+        <div style="display:flex;flex-direction:column">
+          <ul class="stack" style="margin-top:0">
+            <li>Java 21</li><li>Spring Boot</li><li>PostgreSQL</li><li>Flyway</li><li>React 19</li><li>Vite</li><li>Docker Compose</li><li>MinIO</li><li>Ollama</li><li>JUnit</li><li>Testcontainers</li><li>GitHub Actions</li>
+          </ul>
+          <a class="enlace" href="https://github.com/CarlosEscam/LogiCode-Up">Ver el código de LogiCode</a>
+        </div>
+      </article>
+
+      <article class="p">
+        <span class="estado">Proyecto de curso, 2026</span>
+        <h3>LabPar</h3>
+        <p class="p-desc">Plataforma para enseñar programación paralela usando los equipos de la propia universidad.</p>
+        <ul>
+          <li>9 laboratorios virtuales de OpenMP, MPI y CUDA con evaluación automática.</li>
+          <li>Mide speedup, eficiencia y la fracción serial de Karp–Flatt.</li>
+        </ul>
+        <ul class="stack"><li>FastAPI</li><li>React</li><li>TypeScript</li><li>PostgreSQL</li><li>OpenMP</li><li>MPI</li><li>CUDA</li><li>Docker</li></ul>
+        <p class="equipo">Con Kevin Rojas y Juan Felipe Portilla.</p>
+        <a class="enlace" href="https://github.com/CarlosEscam/LabPar">Ver el código de LabPar</a>
+      </article>
+
+      <article class="p">
+        <span class="estado">Backend 1.0.0</span>
+        <h3>PENSAR</h3>
+        <p class="p-desc">Plataforma adaptativa para diagnosticar y desarrollar el pensamiento computacional en estudiantes de nuevo ingreso.</p>
+        <ul>
+          <li>Diagnóstico de 28 ítems basado en el test de Román-González.</li>
+          <li>Retos calificados con el patrón Strategy, niveles y puntos.</li>
+          <li>Integración continua con ruff y pytest, cobertura de 90 % o más.</li>
+        </ul>
+        <ul class="stack"><li>FastAPI</li><li>SQLAlchemy</li><li>PostgreSQL</li><li>JWT</li><li>pytest</li><li>Docker</li></ul>
+        <p class="equipo">Con Yarly Guerrero.</p>
+        <a class="enlace" href="https://github.com/CarlosEscam/pensar-platform">Ver el código de PENSAR</a>
+      </article>
+
+      <article class="p menor">
+        <span class="estado">Otra implementación</span>
+        <h3>LogiCode en Node.js</h3>
+        <p class="p-desc">LogiCode construido con Node.js y Next.js: roles, actividades calificadas automáticamente, juegos y foro público. Con Yarly Guerrero.</p>
+        <ul class="stack"><li>Express</li><li>Prisma</li><li>Next.js</li><li>Tailwind</li></ul>
+        <a class="enlace" href="https://github.com/CarlosEscam/LogiCode">Ver el código</a>
+      </article>
+
+      <article class="p menor">
+        <span class="estado">Investigación</span>
+        <h3>Riesgo de deserción</h3>
+        <p class="p-desc">App en Streamlit que compara K-means, DBSCAN, GMM y clustering jerárquico para encontrar perfiles de riesgo de deserción en Cúcuta.</p>
+        <ul class="stack"><li>Python</li><li>Streamlit</li><li>Clustering</li></ul>
+        <p class="equipo">Con Kevin Rojas.</p>
+      </article>
+
+      <article class="p menor">
+        <span class="estado">Tesis en curso</span>
+        <h3>N-cuerpos en paralelo</h3>
+        <p class="p-desc">El mismo algoritmo con OpenMP, MPI y OpenCL sobre GPU Radeon, comparando speedup y escalabilidad.</p>
+        <ul class="stack"><li>C/C++</li><li>OpenMP</li><li>MPI</li><li>OpenCL</li></ul>
+      </article>
+    </div>
+  </section>
+
+  <section id="stack" class="wrap">
+    <h2>Tecnologías</h2>
+    <p class="intro">Lo que he usado en proyectos reales, no solo en cursos.</p>
+    <div class="tabla-stack">
+      <div class="area">Lenguajes</div><div>Python, Java, JavaScript, TypeScript, SQL, C/C++</div>
+      <div class="area">Backend</div><div>FastAPI, SQLAlchemy, Pydantic, Alembic, Spring Boot, Maven, Flyway, Node.js, Express, Prisma</div>
+      <div class="area">Frontend</div><div>React, Next.js, Vite, Tailwind CSS</div>
+      <div class="area">Bases de datos</div><div>PostgreSQL, SQLite</div>
+      <div class="area">Pruebas</div><div>pytest, JUnit, Testcontainers, ArchUnit, supertest</div>
+      <div class="area">DevOps</div><div>Docker, Docker Compose, GitHub Actions, Nginx</div>
+      <div class="area">Computación paralela</div><div>OpenMP, MPI, CUDA, OpenCL</div>
+      <div class="area">Datos y ML</div><div>Clustering (K-means, DBSCAN, GMM, jerárquico), Streamlit, learning analytics</div>
+      <div class="area">Redes</div><div>Cisco Packet Tracer, OSPFv2, VLSM, VLAN, EtherChannel, DHCP, SSH</div>
+      <div class="area">Ingeniería de software</div><div>UML, Scrum, GitHub Flow, Clean Code, refactorización, deuda técnica</div>
+    </div>
+  </section>
+
+  <section id="trayectoria" class="wrap">
+    <h2>Trayectoria</h2>
+    <p class="intro">Formación y experiencia, de la más reciente a la más antigua.</p>
+    <div class="tray">
+      <div>
+        <h3>Experiencia</h3>
+        <ol class="linea-t">
+          <li class="actual">
+            <span class="cuando">Octubre de 2026, 60 horas</span>
+            <strong>Instructor de bases de datos y SQL</strong>
+            <p>Trabajo social en la I.E. Carlos Pérez Escalante, Cúcuta. Enseñé SQL desde cero a estudiantes de grado 10.º con 10 guías propias basadas en SQLBolt.</p>
+          </li>
+          <li>
+            <span class="cuando">2026</span>
+            <strong>Desarrollo de LogiCode, LabPar y PENSAR</strong>
+            <p>Plataformas completas desarrolladas en equipo para cursos de la Universidad de Pamplona.</p>
+          </li>
+        </ol>
+      </div>
+      <div>
+        <h3>Formación</h3>
+        <ol class="linea-t">
+          <li class="actual">
+            <span class="cuando">En curso, 9.º semestre</span>
+            <strong>Ingeniería de Sistemas</strong>
+            <p>Universidad de Pamplona, Facultad de Ingenierías y Arquitectura.</p>
+          </li>
+          <li>
+            <span class="cuando">SENA</span>
+            <strong>Técnico en Sistemas</strong>
+          </li>
+          <li>
+            <span class="cuando">Técnico</span>
+            <strong>Técnico con Arduino</strong>
+          </li>
+          <li>
+            <span class="cuando">2021</span>
+            <strong>Bachiller</strong>
+            <p>Colegio General Santander, Villa del Rosario.</p>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacto" class="contacto">
+    <div class="wrap">
+      <h2>Contacto</h2>
+      <p>¿Tienes un proyecto, una práctica o una vacante en backend, plataformas educativas o computación paralela? Escríbeme.</p>
+      <a class="correo" href="mailto:carlosescamilla2023@gmail.com">carlosescamilla2023@gmail.com</a>
+      <div class="otros">
+        <a href="https://github.com/CarlosEscam">github.com/CarlosEscam</a>
+      </div>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap">Carlos Alberto Escamilla Mariño, 2026.</div></footer>
+
+<script>
+(() => {
+  const canvas = document.getElementById('cosmos');
+  const ctx = canvas.getContext('2d');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let W, H, dpr, bodies = [];
+  const G = 0.9, SOFT = 140, DT = 0.35;
+
+  function size(){
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = canvas.clientWidth; H = canvas.clientHeight;
+    canvas.width = W * dpr; canvas.height = H * dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+  }
+
+  function seed(){
+    bodies = [];
+    const cx = W * (W > 860 ? 0.68 : 0.5), cy = H * (W > 860 ? 0.42 : 0.24);
+    // dos estrellas masivas en órbita mutua
+    const M = 1800, sep = Math.min(W, H) * 0.16;
+    const v = Math.sqrt(G * M / (4 * sep)) * 0.9;
+    bodies.push({x:cx-sep, y:cy, vx:0, vy:v, m:M, r:6, c:'#F0A43A'});
+    bodies.push({x:cx+sep, y:cy, vx:0, vy:-v, m:M, r:6, c:'#F6C47A'});
+    const n = W < 600 ? 90 : 170;
+    for (let i = 0; i < n; i++){
+      const a = Math.random() * Math.PI * 2;
+      const d = sep * (1.6 + Math.random() * 2.6);
+      const sp = Math.sqrt(G * 2 * M / d) * (0.92 + Math.random() * 0.12);
+      bodies.push({
+        x: cx + Math.cos(a) * d, y: cy + Math.sin(a) * d,
+        vx: -Math.sin(a) * sp, vy: Math.cos(a) * sp,
+        m: 0.4 + Math.random() * 1.2, r: 0.8 + Math.random() * 1.3,
+        c: Math.random() < 0.25 ? '#A9BEFF' : '#E3E8F7'
+      });
+    }
+  }
+
+  function step(){
+    // directo O(n²) solo entre cuerpos masivos y el resto; los ligeros no se atraen entre sí
+    const heavy = bodies.filter(b => b.m > 50);
+    for (const b of bodies){
+      let ax = 0, ay = 0;
+      for (const h of heavy){
+        if (h === b) continue;
+        const dx = h.x - b.x, dy = h.y - b.y;
+        const d2 = dx*dx + dy*dy + SOFT;
+        const inv = G * h.m / (d2 * Math.sqrt(d2));
+        ax += dx * inv; ay += dy * inv;
+      }
+      b.vx += ax * DT; b.vy += ay * DT;
+    }
+    for (const b of bodies){ b.x += b.vx * DT; b.y += b.vy * DT; }
+  }
+
+  function draw(fade){
+    ctx.fillStyle = fade ? 'rgba(14,21,48,0.16)' : '#0E1530';
+    ctx.fillRect(0,0,W,H);
+    for (const b of bodies){
+      ctx.beginPath();
+      ctx.arc(b.x, b.y, b.r, 0, Math.PI*2);
+      ctx.fillStyle = b.c;
+      ctx.fill();
+      if (b.m > 50){
+        ctx.beginPath();
+        ctx.arc(b.x, b.y, b.r * 3.2, 0, Math.PI*2);
+        ctx.fillStyle = 'rgba(240,164,58,0.14)';
+        ctx.fill();
+      }
+    }
+  }
+
+  function loop(){
+    step(); step();
+    draw(true);
+    // recicla cuerpos que escapan lejos
+    for (const b of bodies){
+      if (b.m < 50 && (b.x < -W || b.x > 2*W || b.y < -H || b.y > 2*H)){ b.vx = b.vy = 0; b.x = -9999; }
+    }
+    requestAnimationFrame(loop);
+  }
+
+  canvas.addEventListener('click', e => {
+    const rect = canvas.getBoundingClientRect();
+    const x = e.clientX - rect.left, y = e.clientY - rect.top;
+    for (let i = 0; i < 14; i++){
+      const a = Math.random() * Math.PI * 2, s = 0.5 + Math.random() * 1.5;
+      bodies.push({x, y, vx:Math.cos(a)*s, vy:Math.sin(a)*s, m:0.8, r:1.2+Math.random(), c:'#F6C47A'});
+    }
+  });
+
+  size(); seed();
+  if (reduce){
+    for (let i = 0; i < 400; i++) step();
+    draw(false);
+  } else {
+    draw(false);
+    loop();
+  }
+  let t;
+  addEventListener('resize', () => { clearTimeout(t); t = setTimeout(() => { size(); seed(); draw(false); }, 200); });
+})();
+</script>
+</body>
+</html>
